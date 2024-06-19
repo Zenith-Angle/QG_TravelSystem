@@ -1,0 +1,29 @@
+{
+  "name": "my-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@arcgis/core": "^4.29.10",
+    "@element-plus/icons-vue": "^2.3.1",
+    "@vue/cli": "^5.0.8",
+    "axios": "^1.6.8",
+    "echarts": "^5.5.0",
+    "echarts-wordcloud": "^2.1.0",
+    "element-plus": "^2.6.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "vuex": "^4.0.2",
+    "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "@types/collections": "^5.1.5",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.1.4"
+  }
+}

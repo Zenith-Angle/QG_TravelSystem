@@ -1,0 +1,734 @@
+[
+    {
+        "name": "游客",
+        "value": 6
+    },
+    {
+        "name": "打卡",
+        "value": 6
+    },
+    {
+        "name": "也",
+        "value": 19
+    },
+    {
+        "name": "和",
+        "value": 36
+    },
+    {
+        "name": "一起",
+        "value": 5
+    },
+    {
+        "name": "祈福",
+        "value": 6
+    },
+    {
+        "name": "啦",
+        "value": 7
+    },
+    {
+        "name": "张掖",
+        "value": 469
+    },
+    {
+        "name": "马蹄寺",
+        "value": 567
+    },
+    {
+        "name": "风光",
+        "value": 112
+    },
+    {
+        "name": "旅游区",
+        "value": 111
+    },
+    {
+        "name": "遇见",
+        "value": 5
+    },
+    {
+        "name": "带",
+        "value": 15
+    },
+    {
+        "name": "着",
+        "value": 19
+    },
+    {
+        "name": "微博去",
+        "value": 13
+    },
+    {
+        "name": "旅行",
+        "value": 28
+    },
+    {
+        "name": "是",
+        "value": 62
+    },
+    {
+        "name": "的",
+        "value": 349
+    },
+    {
+        "name": "多",
+        "value": 8
+    },
+    {
+        "name": "让",
+        "value": 6
+    },
+    {
+        "name": "人",
+        "value": 16
+    },
+    {
+        "name": "地方",
+        "value": 17
+    },
+    {
+        "name": "都",
+        "value": 28
+    },
+    {
+        "name": "有",
+        "value": 33
+    },
+    {
+        "name": "自己",
+        "value": 6
+    },
+    {
+        "name": "你",
+        "value": 25
+    },
+    {
+        "name": "还",
+        "value": 16
+    },
+    {
+        "name": "不",
+        "value": 19
+    },
+    {
+        "name": "知道",
+        "value": 8
+    },
+    {
+        "name": "去",
+        "value": 32
+    },
+    {
+        "name": "就",
+        "value": 32
+    },
+    {
+        "name": "来",
+        "value": 34
+    },
+    {
+        "name": "小",
+        "value": 12
+    },
+    {
+        "name": "分享",
+        "value": 48
+    },
+    {
+        "name": "图片",
+        "value": 44
+    },
+    {
+        "name": "了",
+        "value": 148
+    },
+    {
+        "name": "下",
+        "value": 9
+    },
+    {
+        "name": "甘肃",
+        "value": 12
+    },
+    {
+        "name": "祁连山",
+        "value": 30
+    },
+    {
+        "name": "马蹄",
+        "value": 12
+    },
+    {
+        "name": "乡",
+        "value": 5
+    },
+    {
+        "name": "雪山",
+        "value": 26
+    },
+    {
+        "name": "旅游",
+        "value": 10
+    },
+    {
+        "name": "视频",
+        "value": 14
+    },
+    {
+        "name": "石窟群",
+        "value": 16
+    },
+    {
+        "name": "景区",
+        "value": 26
+    },
+    {
+        "name": "微博",
+        "value": 12
+    },
+    {
+        "name": "风景",
+        "value": 10
+    },
+    {
+        "name": "照",
+        "value": 5
+    },
+    {
+        "name": "在",
+        "value": 80
+    },
+    {
+        "name": "路上",
+        "value": 7
+    },
+    {
+        "name": "所有",
+        "value": 5
+    },
+    {
+        "name": "快乐",
+        "value": 5
+    },
+    {
+        "name": "就是",
+        "value": 17
+    },
+    {
+        "name": "我",
+        "value": 64
+    },
+    {
+        "name": "想",
+        "value": 10
+    },
+    {
+        "name": "喜欢",
+        "value": 11
+    },
+    {
+        "name": "吃",
+        "value": 13
+    },
+    {
+        "name": "感谢",
+        "value": 5
+    },
+    {
+        "name": "一个",
+        "value": 26
+    },
+    {
+        "name": "冷",
+        "value": 5
+    },
+    {
+        "name": "石窟",
+        "value": 176
+    },
+    {
+        "name": "人生",
+        "value": 5
+    },
+    {
+        "name": "个",
+        "value": 12
+    },
+    {
+        "name": "这",
+        "value": 14
+    },
+    {
+        "name": "照片",
+        "value": 5
+    },
+    {
+        "name": "再",
+        "value": 7
+    },
+    {
+        "name": "看看",
+        "value": 5
+    },
+    {
+        "name": "吧",
+        "value": 9
+    },
+    {
+        "name": "河西走廊",
+        "value": 11
+    },
+    {
+        "name": "西北",
+        "value": 7
+    },
+    {
+        "name": "大",
+        "value": 9
+    },
+    {
+        "name": "环线",
+        "value": 5
+    },
+    {
+        "name": "山",
+        "value": 5
+    },
+    {
+        "name": "我们",
+        "value": 15
+    },
+    {
+        "name": "可以",
+        "value": 5
+    },
+    {
+        "name": "特窟",
+        "value": 14
+    },
+    {
+        "name": "但是",
+        "value": 5
+    },
+    {
+        "name": "被",
+        "value": 17
+    },
+    {
+        "name": "破坏",
+        "value": 6
+    },
+    {
+        "name": "千佛洞",
+        "value": 26
+    },
+    {
+        "name": "一",
+        "value": 7
+    },
+    {
+        "name": "感受",
+        "value": 8
+    },
+    {
+        "name": "风",
+        "value": 6
+    },
+    {
+        "name": "1600",
+        "value": 7
+    },
+    {
+        "name": "啊",
+        "value": 11
+    },
+    {
+        "name": "真的",
+        "value": 19
+    },
+    {
+        "name": "手脚",
+        "value": 9
+    },
+    {
+        "name": "并用",
+        "value": 9
+    },
+    {
+        "name": "直接",
+        "value": 6
+    },
+    {
+        "name": "腿",
+        "value": 5
+    },
+    {
+        "name": "里",
+        "value": 13
+    },
+    {
+        "name": "好",
+        "value": 14
+    },
+    {
+        "name": "这里",
+        "value": 12
+    },
+    {
+        "name": "三十三天",
+        "value": 48
+    },
+    {
+        "name": "只有",
+        "value": 5
+    },
+    {
+        "name": "能",
+        "value": 8
+    },
+    {
+        "name": "没有",
+        "value": 11
+    },
+    {
+        "name": "上",
+        "value": 36
+    },
+    {
+        "name": "今天",
+        "value": 23
+    },
+    {
+        "name": "又",
+        "value": 13
+    },
+    {
+        "name": "很",
+        "value": 37
+    },
+    {
+        "name": "于",
+        "value": 8
+    },
+    {
+        "name": "绝壁",
+        "value": 10
+    },
+    {
+        "name": "值得",
+        "value": 8
+    },
+    {
+        "name": "而",
+        "value": 6
+    },
+    {
+        "name": "时候",
+        "value": 13
+    },
+    {
+        "name": "雪",
+        "value": 11
+    },
+    {
+        "name": "金塔寺",
+        "value": 37
+    },
+    {
+        "name": "从",
+        "value": 14
+    },
+    {
+        "name": "说",
+        "value": 10
+    },
+    {
+        "name": "爬",
+        "value": 29
+    },
+    {
+        "name": "到",
+        "value": 29
+    },
+    {
+        "name": "然后",
+        "value": 5
+    },
+    {
+        "name": "这样",
+        "value": 5
+    },
+    {
+        "name": "见",
+        "value": 6
+    },
+    {
+        "name": "千年",
+        "value": 11
+    },
+    {
+        "name": "但",
+        "value": 8
+    },
+    {
+        "name": "要",
+        "value": 6
+    },
+    {
+        "name": "看到",
+        "value": 17
+    },
+    {
+        "name": "还是",
+        "value": 7
+    },
+    {
+        "name": "得",
+        "value": 8
+    },
+    {
+        "name": "才",
+        "value": 6
+    },
+    {
+        "name": "两个",
+        "value": 6
+    },
+    {
+        "name": "窟",
+        "value": 10
+    },
+    {
+        "name": "因",
+        "value": 5
+    },
+    {
+        "name": "过",
+        "value": 6
+    },
+    {
+        "name": "不负",
+        "value": 5
+    },
+    {
+        "name": "今日",
+        "value": 5
+    },
+    {
+        "name": "已经",
+        "value": 11
+    },
+    {
+        "name": "祁连",
+        "value": 12
+    },
+    {
+        "name": "祁连山脉",
+        "value": 5
+    },
+    {
+        "name": "太",
+        "value": 12
+    },
+    {
+        "name": "中",
+        "value": 15
+    },
+    {
+        "name": "美",
+        "value": 6
+    },
+    {
+        "name": "看",
+        "value": 19
+    },
+    {
+        "name": "之",
+        "value": 5
+    },
+    {
+        "name": "会",
+        "value": 11
+    },
+    {
+        "name": "跟",
+        "value": 6
+    },
+    {
+        "name": "寺庙",
+        "value": 12
+    },
+    {
+        "name": "拍",
+        "value": 5
+    },
+    {
+        "name": "感觉",
+        "value": 11
+    },
+    {
+        "name": "比",
+        "value": 5
+    },
+    {
+        "name": "更",
+        "value": 5
+    },
+    {
+        "name": "所",
+        "value": 6
+    },
+    {
+        "name": "最",
+        "value": 7
+    },
+    {
+        "name": "最后",
+        "value": 8
+    },
+    {
+        "name": "昨天",
+        "value": 6
+    },
+    {
+        "name": "给",
+        "value": 6
+    },
+    {
+        "name": "小时",
+        "value": 6
+    },
+    {
+        "name": "震撼",
+        "value": 8
+    },
+    {
+        "name": "中国",
+        "value": 5
+    },
+    {
+        "name": "只能",
+        "value": 7
+    },
+    {
+        "name": "们",
+        "value": 5
+    },
+    {
+        "name": "与",
+        "value": 8
+    },
+    {
+        "name": "陡峭",
+        "value": 5
+    },
+    {
+        "name": "第一次",
+        "value": 5
+    },
+    {
+        "name": "三十三",
+        "value": 8
+    },
+    {
+        "name": "有点",
+        "value": 5
+    },
+    {
+        "name": "景点",
+        "value": 8
+    },
+    {
+        "name": "洞窟",
+        "value": 6
+    },
+    {
+        "name": "佛像",
+        "value": 9
+    },
+    {
+        "name": "呢",
+        "value": 5
+    },
+    {
+        "name": "殿",
+        "value": 7
+    },
+    {
+        "name": "像",
+        "value": 5
+    },
+    {
+        "name": "攀岩",
+        "value": 6
+    },
+    {
+        "name": "没",
+        "value": 7
+    },
+    {
+        "name": "一天",
+        "value": 6
+    },
+    {
+        "name": "台阶",
+        "value": 6
+    },
+    {
+        "name": "这个",
+        "value": 7
+    },
+    {
+        "name": "站",
+        "value": 7
+    },
+    {
+        "name": "里面",
+        "value": 6
+    },
+    {
+        "name": "上下",
+        "value": 5
+    },
+    {
+        "name": "古刹",
+        "value": 6
+    },
+    {
+        "name": "排队",
+        "value": 11
+    },
+    {
+        "name": "壁画",
+        "value": 7
+    },
+    {
+        "name": "草原",
+        "value": 5
+    },
+    {
+        "name": "佛教",
+        "value": 6
+    },
+    {
+        "name": "前",
+        "value": 7
+    },
+    {
+        "name": "深处",
+        "value": 5
+    },
+    {
+        "name": "怎么",
+        "value": 7
+    },
+    {
+        "name": "莫高窟",
+        "value": 5
+    },
+    {
+        "name": "一直",
+        "value": 5
+    }
+]
