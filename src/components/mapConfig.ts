@@ -195,7 +195,7 @@ export function setMapCenter(longitude: number, latitude: number, zoom: number =
 
 let sketchViewModel: SketchViewModel | null = null;
 
-export function selectManualLocation(enable: boolean, notify: (msg: string) => void) {
+export function selectManualLocation(enable: boolean, notify: (msg: string) => void, onComplete: () => void) {
     if (!view) {
         console.error('MapView is not initialized.');
         return;
@@ -224,12 +224,31 @@ export function selectManualLocation(enable: boolean, notify: (msg: string) => v
                 sketchViewModel.layer.removeAll(); // 清除草图图层
                 let point = event.graphic.geometry as Point;
                 point = webMercatorUtils.webMercatorToGeographic(point) as Point;
-                setMapCenter(point.longitude, point.latitude,15); // 使用转换后的经纬度更新地图中心
+                setMapCenter(point.longitude, point.latitude, 15); // 使用转换后的经纬度更新地图中心
                 notify(`目标经度: ${point.longitude.toFixed(3)}, 目标纬度: ${point.latitude.toFixed(3)}`);
+                notify(`当前仍处于手动选择位置模式，点击右键可退出`);
+                onComplete(); // 调用 onComplete 回调来更新状态
             }
         });
 
         sketchViewModel.create('point'); // 创建点
+
+        // 添加鼠标右键点击事件监听，用于退出选择模式
+        view.on("click", function (event) {
+            if (event.button === 2) { // 检查是否是鼠标右键
+                if (sketchViewModel) {
+                    sketchViewModel.cancel(); // 取消当前创建
+                    onComplete(); // 调用 onComplete 更新状态
+                    notify('手动选择位置功能已关闭');
+                }
+            }
+        });
+    } else {
+        if (sketchViewModel) {
+            sketchViewModel.cancel(); // 取消当前创建
+            onComplete(); // 确保在关闭时也调用 onComplete
+            notify('手动选择位置功能已关闭');
+        }
     }
 }
 

@@ -84,8 +84,12 @@ export default {
           type: 'info',
           duration: 5000
         });
+      }, () => {
+        // 添加一个新的回调来处理状态更新
+        this.isSelectingLocation = false;
       });
-    },
+    }
+
   }
 };
 </script>
