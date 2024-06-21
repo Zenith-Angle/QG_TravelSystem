@@ -1,6 +1,5 @@
 <template>
   <div class="search-wrapper" :class="{ 'search-active': searchActive }">
-    <!-- 添加 ref 属性以支持自动聚焦 -->
     <el-input
         ref="searchInput"
         v-model="searchQuery"
@@ -25,7 +24,7 @@ import axios from 'axios';
 import searchIcon from '@/assets/images/搜索.svg';
 import keys from '@/keys';
 
-const tencentMapKey = keys.tencentMapKey;
+const amapKey = keys.AMAP_KEY;  // 使用高德地图的 API Key
 
 axios.defaults.baseURL = '/api'
 export default {
@@ -48,7 +47,6 @@ export default {
     },
     searchMap(keyword) {
       console.log('Search Map called with:', keyword);
-      // 检查输入是否是"数字,数字"形式的经纬度
       const latLngPattern = /^\s*([-+]?\d{1,2}(\.\d+)?),\s*([-+]?\d{1,3}(\.\d+)?)\s*$/;
       const match = keyword.match(latLngPattern);
 
@@ -57,25 +55,25 @@ export default {
         const lng = parseFloat(match[3]);
         console.log('Setting map center to:', lat, lng);
         setMapCenter(lng, lat, 11);
-        drawPoint('point', 'administrative',[[lng, lat]], {
+        drawPoint('administrative', [[lng, lat]], {
           name: '自定义位置',
-          address: `经度: ${lng}, 纬度: ${lat}`
+          address: `经度: ${lng}, 纬度: ${lat}`,
+          level: '自定义'
         });
       } else {
-        // 如果不是经纬度形式，则继续搜索
-        const url = `/ws/district/v1/search?keyword=${encodeURIComponent(keyword)}&key=${tencentMapKey}`;
+        const url = `https://restapi.amap.com/v3/config/district?keywords=${encodeURIComponent(keyword)}&key=${amapKey}&subdistrict=0&extensions=base`;
         axios.get(url)
             .then(response => {
               console.log('API Response:', response.data);
-              // 解析返回的JSON数据，获取第一个结果的经纬度、名称和地址
-              const firstResult = response.data.result[0][0]
-              const {lat, lng} = firstResult.location;
-              const {name, address} = firstResult;
-
-              // 使用mapConfig中的方法，将地图中心移动到那个点
-              setMapCenter(lng, lat, 11);
-              // 在新坐标上绘制点，并传入名称和地址信息
-              drawPoint('administrative',[[lng, lat]], {name, address});
+              if (response.data.status === '1' && response.data.districts.length > 0) {
+                const {center, name, level} = response.data.districts[0];
+                const [lng, lat] = center.split(',').map(Number);
+                console.log('Moving map center to:', name, lng, lat);
+                setMapCenter(lng, lat, 11);
+                drawPoint('administrative', [[lng, lat]], {name, address: center, level});
+              } else {
+                console.error('No results found or API Error');
+              }
             })
             .catch(error => {
               console.error('API Error:', error);

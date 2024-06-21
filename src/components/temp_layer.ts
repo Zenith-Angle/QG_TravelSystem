@@ -32,6 +32,7 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
     adname?: string,
     type?: string,
     distance?: string
+    level?: string
 }): void {
     // console.log('drawPoint called with:', pointType, coordinates, info);
 
@@ -72,6 +73,7 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                     title: "行政区信息",
                     content: `名称: ${info?.name ?? ''}<br>
                               地址: ${info?.address ?? ''}<br>
+                              等级: ${info?.level ?? ''}<br>
                               经度: ${longitude}<br>
                               纬度: ${latitude}`
                 });
