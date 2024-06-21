@@ -27,7 +27,7 @@
 
 ### 搜索功能
 
->目前的搜索功能基于[腾讯地图的行政区划搜索API](https://lbs.qq.com/service/webService/webServiceGuide/search/webServiceDistrict)
+>目前的搜索功能基于[高德地图的行政区划搜索API](https://lbs.amap.com/api/webservice/guide/api/district)
 实现
 
 用户可以通过至多到县级行政区的关键字搜索，系统会将地图中心移动到指定位置
@@ -99,5 +99,30 @@
 > 注意：由于高德地图API的限制，周边查询的范围是以当前地图中心为中心的一个圆形区域
 > 且最大半径为5000米，所以在某些情况下，可能无法查询到周边信息
 
-
+---
 ## 项目地图功能
+
+
+### 图层切换
+点击右侧的图层切换按钮，可以切换地图的底图。
+
+目前提供了三种天地图的底图，分别是：`矢量底图`、`卫星影像图`、`地形渲染图`
+这三种数据来自于[天地图开发资源地图API](http://lbs.tianditu.gov.cn/server/MapService.html)
+
+除此以外，还提供了OSM的底图，数据来自于[OpenStreetMap](https://www.openstreetmap.org/)
+
+在众源的网络图层之外，本项目中还制作了热力图和交通图层。
+#### 热力图
+本次的热力图制作是利用通过爬取2023年范围内的微博签到数据及其
+内容进行绘制。同时在各个景点的位置辅以百度指数进行绘制。
+
+在范围内，对应的微博数据密度越高，百度指数越高，反应这个区域热度
+越高，在热力图中反应为越趋近于红色；反之，则趋近于蓝色
+
+热力图的发布地址为[青甘大环线热力图](https://data.lzu.edu.cn/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/HotPoint/MapServer)
+
+#### 交通图
+交通图的绘制是利用OpenStreetMap的数据，通过数据的`fclass`字段
+来绘制不同类型的交通线路。在本项目中，我们绘制了`truck`、`motorway`、`primary`、`secondary`、`tertiary`几个类型的交通线路
+在地图中，点击`交通图`按钮，即可开启交通图层。
+
