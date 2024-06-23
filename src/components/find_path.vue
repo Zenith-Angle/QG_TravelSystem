@@ -213,9 +213,9 @@ export default {
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(2px);
-  left: 470px;
+  left: 130px;
   height: auto;
-  top: 10px;
+  top: 80px;
 }
 
 .box-card .clearfix {
