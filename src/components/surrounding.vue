@@ -5,7 +5,7 @@
 <script>
 import axios from 'axios';
 import {mapCenter} from './mapConfig';
-import {reverseGeocodeCurrentLocation} from './GeoCode';
+import {reverseGeocodeCurrentLocation} from './GeoCode_and_ReverseGeocode.ts';
 import {drawPoint, drawRange} from './temp_layer.ts'; // 引入地图绘制函数
 import keys from '@/keys';
 const radius = 20000; // 查询半径

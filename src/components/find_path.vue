@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {geocodeLocation} from '../components/GeoCode';
+import {geocodeLocation} from './GeoCode_and_ReverseGeocode.ts';
 import {drawPolyline, drawPoint, drawGrid} from './temp_layer.ts';
 import {
   calculateMidpoint,
