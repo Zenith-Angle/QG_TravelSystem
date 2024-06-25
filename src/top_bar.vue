@@ -8,7 +8,7 @@
 
 <script>
 import MenuBar from './menu.vue';
-import SearchBar from './search.vue';
+import SearchBar from './search_bar.vue';
 import Weather from './components/weather.vue'
 
 export default {
