@@ -1,12 +1,41 @@
 <!-- menu.vue -->
 <template>
-  <!-- 假设这是菜单的结构 -->
   <el-button-group>
-    <el-button @click="toggleMenu('surrounding')">周边</el-button>
-    <el-button @click="openFindPath">路线</el-button>
-    <el-button @click="toggleMenu('location')">位置</el-button>
-    <el-button @click="emitToggleWeather">天气</el-button>
-    <el-button @click="openInfo">关于</el-button>
+    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+      <template #reference>
+        <el-button @click="toggleMenu('surrounding')">周边</el-button>
+      </template>
+      <p>以当前地图中心为搜索点，进行周边搜索</p>
+    </el-popover>
+
+    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+      <template #reference>
+        <el-button @click="openFindPath">路线</el-button>
+      </template>
+      <p>输入起点、终点，获取路线</p>
+    </el-popover>
+
+    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+      <template #reference>
+        <el-button @click="toggleMenu('location')">位置</el-button>
+      </template>
+      <p>获取当前位置，或手动指定位置</p>
+    </el-popover>
+
+    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+      <template #reference>
+        <el-button @click="emitToggleWeather">天气</el-button>
+      </template>
+      <p>以当前地图中心为搜索点，获取天气信息</p>
+    </el-popover>
+
+    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+      <template #reference>
+        <el-button @click="openInfo">关于</el-button>
+      </template>
+      <p>项目相关信息</p>
+    </el-popover>
+
     <div v-show="activeMenu === 'location'" class="location-menu">
       <el-button @click="requestCurrentLocation">获取当前位置</el-button>
       <el-button @click="handleManualLocation">手动选择位置</el-button>
@@ -18,11 +47,12 @@
       <el-button @click="handleSurrounding('加油站')">加油站</el-button>
     </div>
   </el-button-group>
+
   <Surrounding ref="surroundingComponent"/>
   <find-path :visible="findPathVisible"></find-path>
   <Info :visible="infoVisible" @update:visible="infoVisible = $event"/>
-
 </template>
+
 
 <script>
 import {getUserLocation} from './components/location';
