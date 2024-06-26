@@ -8,6 +8,16 @@
         :modal="false"
         @close="resetDialog"
     >
+      <!-- 添加按钮组 -->
+      <el-button-group class="drawer-buttons">
+        <el-button :type="showPieChart ? 'primary' : 'default'" @click="togglePieChart">
+          饼图
+        </el-button>
+        <el-button :type="showWordcloudChart ? 'primary' : 'default'"
+                   @click="toggleWordcloudChart">词云图
+        </el-button>
+      </el-button-group>
+
       <!-- 这里加载异步组件，显示具体地标的信息 -->
       <component :is="asyncComponent"/>
       <span class="drawer-footer">
@@ -16,15 +26,14 @@
     </el-drawer>
 
     <!-- 饼图组件放置在页面中间偏左上 -->
-    <pie-chart :landmarkName="selectedLandmark.name" v-if="selectedLandmark.name"
+    <pie-chart v-if="showPieChart" :landmarkName="selectedLandmark.name"
                style="position: absolute; top: 10%; left: 10%;"/>
 
     <!-- 词云图组件放置在页面中间偏右下 -->
-    <wordcloud-chart :landmarkName="selectedLandmark.name" v-if="selectedLandmark.name"
+    <wordcloud-chart v-if="showWordcloudChart" :landmarkName="selectedLandmark.name"
                      style="position: absolute; bottom: 10%; right: 10%;"/>
   </div>
 </template>
-
 
 <script setup>
 import {ref, onMounted, onUnmounted, defineAsyncComponent} from 'vue';
@@ -39,11 +48,19 @@ const drawerSize = ref('500px'); // 设定抽屉宽度
 let asyncComponent = ref(null);
 let clickHandler = null; // 初始化事件处理器
 
+// 定义显示图表的状态
+const showPieChart = ref(false);
+const showWordcloudChart = ref(false);
+
 function openLandmarkDialog(landmark) {
   console.log('Opening drawer with landmark:', landmark); // 调试日志
   console.log('Drawer visible before:', dialogVisible.value); // 输出抽屉可见性状态
   selectedLandmark.value = landmark;
   dialogVisible.value = true;
+
+  // 重置图表显示状态
+  showPieChart.value = false;
+  showWordcloudChart.value = false;
 
   // 根据地标名称动态加载 Vue 组件
   asyncComponent.value = defineAsyncComponent(() =>
@@ -60,6 +77,8 @@ function resetDialog() {
   dialogVisible.value = false;
   selectedLandmark.value = {name: ''};
   asyncComponent.value = null;
+  showPieChart.value = false;
+  showWordcloudChart.value = false;
 }
 
 function handleMapClick(event) {
@@ -92,6 +111,16 @@ function handleMapClick(event) {
   }
 }
 
+// 切换饼图显示状态
+function togglePieChart() {
+  showPieChart.value = !showPieChart.value;
+}
+
+// 切换词云图显示状态
+function toggleWordcloudChart() {
+  showWordcloudChart.value = !showWordcloudChart.value;
+}
+
 onMounted(() => {
   if (view) {
     console.log("MapView is initialized and ready for interaction.");
@@ -108,11 +137,15 @@ onUnmounted(() => {
 });
 </script>
 
-
 <style>
 /* 添加样式以确保 el-drawer 能正确显示 */
 .drawer-footer {
   text-align: right;
   padding: 10px 20px;
+}
+
+.drawer-buttons {
+  text-align: center;
+  margin-bottom: 10px;
 }
 </style>
