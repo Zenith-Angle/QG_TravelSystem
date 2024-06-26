@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="9420c25a-e13a-48a4-9ca1-651c335f3bc8" name="lzw" url="http://lzw.zky666.fun">
+      <webServer id="9420c25a-e13a-48a4-9ca1-651c335f3bc8" name="lzw" url="https://qg.zenithangle.top:8848">
         <fileTransfer rootFolder="/home/www" accessType="SFTP" host="139.155.138.81" port="22" sshConfigId="86272109-a62c-4f61-87c3-10a0fc582e2d" sshConfig="root@139.155.138.81:22 key" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
