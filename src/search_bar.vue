@@ -51,8 +51,8 @@ export default {
       const match = keyword.match(latLngPattern);
 
       if (match) {
-        const lat = parseFloat(match[1]);
-        const lng = parseFloat(match[3]);
+        const lat = parseFloat(match[1]);// 纬度
+        const lng = parseFloat(match[3]);// 经度
         console.log('Setting map center to:', lat, lng);
         setMapCenter(lng, lat, 11);
         drawPoint('administrative', [[lng, lat]], {

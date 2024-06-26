@@ -1,7 +1,8 @@
 import axios, {AxiosResponse} from 'axios';
 import {mapCenter} from './mapConfig';
+import keys from "../keys.json";
 
-const AMAP_API_KEY = '14452a4e924680db96b2144177eae4c7';
+const AMAP_API_KEY = keys.AMAP_KEY;
 
 // 定义一个接口来描述高德地理逆编码 API 返回的 JSON 结构
 interface ReverseGeocodeResult {
