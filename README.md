@@ -4,7 +4,7 @@
 # 项目预览：
 您可以通过访问：
 
-[青甘大环线智能旅游服务系统](https://qg.zenithangle.top:8848/)
+[青甘大环线智能旅游服务系统](https://qg.zenithangle.top/)
 来预览本系统
 
 ---
