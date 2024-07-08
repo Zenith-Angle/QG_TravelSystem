@@ -8,7 +8,24 @@
 来预览本系统
 
 ---
+## 项目配置
+### keys.json配置方式
+本项目主要使用了天地图API，高德地图的API，和风天气的API，如果您想要使用本项目，您需要在项目根目录下创建一个`keys.json`文件，文件内容如下：
+```json
+{
+  "tiandituKey": "天地图API",
+  "AMAP_KEY": "高德地图API_1",
+  "AMAP_API_KEY": "高德地图API_2",
+  "apiKey": "和风天气API"
+}
+```
 
+具体API的申请地址分别为：
+    [天地图API](http://lbs.tianditu.gov.cn/home.html)
+    [高德地图API](https://lbs.amap.com/)
+    [和风天气API](https://dev.qweather.com/)
+
+---
 ## 项目介绍
 
 这是一个基于ArcGIS Map SDK for JavaScript的WebGIS项目。目的是建立一个以青甘大环线为主要区域的旅游规划应用
