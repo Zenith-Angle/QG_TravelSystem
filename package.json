@@ -13,12 +13,16 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@vue/cli": "^5.0.8",
     "axios": "^1.6.8",
+    "braces": "~3.0.3",
     "echarts": "^5.5.0",
     "echarts-wordcloud": "^2.1.0",
     "element-plus": "^2.6.0",
+    "got": "~11.8.5",
+    "http-cache-semantics": "~4.1.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vuex": "^4.0.2",
+    "ws": "~7.5.10",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
