@@ -6,14 +6,18 @@
         <span class="header-title">青甘大环线智能旅游服务系统</span>
       </div>
       <div>
-        <p>这是一个基于ArcGIS Map SDK for JavaScript的WebGIS项目。目的是建立一个以青甘大环线为主要区域的旅游规划应用</p>
+        <p>这是一个基于ArcGIS Map SDK for
+          JavaScript的WebGIS项目。目的是建立一个以青甘大环线为主要区域的旅游规划应用</p>
         <div class="author-info">
           <el-image
               style="width: 50px; height: 50px; border-radius: 50%;"
               src="author_avatar_url.jpg"
               fit="cover">
           </el-image>
-          <a href="author_github_link" target="_blank">GitHub</a>
+          <a href="https://github.com/Zenith-Angle/QG_TravelSystem" target="_blank">
+            <img src="@/assets/images/github.svg" alt="GitHub"
+                 style="width: 50px; height: 50px;">
+          </a>
         </div>
       </div>
       <!-- Close Button -->
@@ -24,16 +28,13 @@
   </div>
 </template>
 
-
 <script>
 import {ref} from 'vue';
+
 
 export default {
   props: {
     visible: Boolean
-  },
-  components: {
-
   },
   methods: {
     closeCard() {
@@ -42,7 +43,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 #info {
@@ -76,4 +76,3 @@ export default {
   margin-top: 20px;
 }
 </style>
-
