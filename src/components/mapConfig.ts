@@ -73,7 +73,7 @@ const osmLayer = new WebTileLayer({
 
 // 新增 热点图 图层
 const HotPoint = new MapImageLayer({
-    url: 'https://qg.zenithangle.top:8848/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/HotPoint/MapServer',
+    url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/HotPoint/MapServer',
     sublayers: [{
         id: 0 // 使用id来指定子图层
     }],
@@ -84,7 +84,7 @@ const HotPoint = new MapImageLayer({
 
 // 新增 景点图 图层
 const landmarks: FeatureLayer = new FeatureLayer({
-    url: 'https://qg.zenithangle.top:8848/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/landmarks/MapServer',
+    url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/landmarks/MapServer',
     id: 'Landmarks'
 });
 
@@ -92,7 +92,7 @@ const landmarks: FeatureLayer = new FeatureLayer({
 
 //新增 道路 图层
 const road = new FeatureLayer({
-    url: 'https://qg.zenithangle.top:8848/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/roads/MapServer',
+    url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/roads/MapServer',
     id: 'Roads'
 });
 
