@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <<p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/a64fda9e6e4396da.jpg"
+            style="width: 60%;"/>
+      </p>
      <p>
       莫高窟也称千佛洞，位于敦煌市区的东南侧。石窟始建于东晋十六国时期，石窟开凿历经了千年，直到元朝结束。拥有大量的壁画、石窟、文物等，是全世界闻名的佛教艺术胜地。在这里可以欣赏到规模浩大内容丰富的石窟和壁画艺术，还能通过讲解和电影展示了解到佛教在敦煌上千年的发展历史，是游客游玩敦煌之地。
      </p>

@@ -156,9 +156,11 @@ onUnmounted(() => {
 }
 
 .custom-title {
-  font-size: 36px; /* 调整字体大小 */
+  font-size: 24px; /* 调整字体大小 */
   display: flex;
   align-items: center;
+  line-height: 1.2; /* 调整行高 */
+  padding: 5px 0; /* 调整内边距 */
 }
 
 .landmark-icon {

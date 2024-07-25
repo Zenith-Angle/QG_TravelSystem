@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/2c4845fac43ea781.jpg"
+            style="width: 60%;"/>
+      </p>
      <p class="inset-p">
       茶卡盐湖是一座有三千多年历史的盐场，湖水含盐量很大，会自然结晶成为一片白色的湖面，将天空、云朵和对岸的山都倒映在湖里，景色非常漂亮。游客还可以赤脚走到湖面上观看和拍摄自己的倒影，犹如天空之境。
      </p>

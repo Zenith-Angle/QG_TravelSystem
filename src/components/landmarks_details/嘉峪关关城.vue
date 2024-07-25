@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/87e066dba1012c7d.jpg"
+            style="width: 60%;"/>
+      </p>
      <p>
       嘉峪关关城位于嘉峪关市西5公里处，这里是明长城的西段。关城始建于明朝。
      </p>

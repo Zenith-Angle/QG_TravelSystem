@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/d111d460c5b0d2d9.jpg"
+            style="width: 60%;"/>
+      </p>
      <p class="inset-p">
       翡翠湖位于伊克柴达木湖东北侧、大柴旦镇区西北十公里处，属于海西蒙古族藏族自治州，原是大柴旦化工厂盐湖采矿队采矿区。因湖水在阳光下清澈湛蓝，色如翡翠，故得名“翡翠湖”。
      </p>

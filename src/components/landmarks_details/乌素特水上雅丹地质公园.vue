@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/c47e464717cab416.jpg"
+            style="width: 60%;"/>
+      </p>
      <p class="inset-p">
       乌素特水上雅丹地质公园是一处水上雅丹的特色地质地貌，因为吉乃尔湖面抬升，逐步淹没北缘的雅丹群，形成了独特的水上雅丹，
       <span>

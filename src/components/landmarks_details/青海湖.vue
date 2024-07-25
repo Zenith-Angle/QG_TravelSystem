@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
      <div>
+       <p style="text-align: center;">
+         <img
+             src="https://s3.bmp.ovh/imgs/2024/07/25/c24a257898386207.jpg"
+             style="width: 60%;"/>
+       </p>
        <p>
          青海湖藏语名为“措温布”（意为“青色的海”）。位于青藏高原东北部、青海省境内，由祁连山脉的大通山、日月山与青海南山之间的断层陷落形成，是中国较大的内陆湖泊，也是青海省名称的由来。湖泊地域面积辽阔，环湖一圈约360公里，湖水浩瀚无边又蔚蓝空灵。湖的周围被群山环抱，而贴近湖畔则是苍茫的草原，景色壮观优美，可供观赏的地带和景观很多，是游玩青海重要的景区。</p>
      </div>

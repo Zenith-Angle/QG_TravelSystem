@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/0ac0230476f9bf2b.jpg"
+            style="width: 60%;"/>
+      </p>
      <p class="inset-p">
       马蹄寺，又称普光寺，位于肃南裕固族自治县境内祁连山麓之间，是一处庞大的石窟寺院建筑群。在石壁上有从北凉时期至今千年以来凿刻的多个石窟佛像，还有高层的石窟寺院建筑，非常的奇幻壮观。这里既有汉传佛教的寺院，又有藏传佛教殿宇，同一地方风格不同，十分独特。寺院里还有天马蹄印、元代壁画、佛像等众多的传说古迹，非常值得前来参观。
      </p>

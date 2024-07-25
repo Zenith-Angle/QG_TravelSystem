@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/ceefdf80c1326461.jpg"
+            style="width: 60%;"/>
+      </p>
      <p>
       张掖七彩丹霞旅游景区位于祁连山北麓临泽、肃南县境内，景区东距张掖市区40公里，北距临泽县城20公里，景区总面积50平方公里，游客活动面积4平方公里，现为世界地质公园和国家5A级旅游景区。景区内有七彩云海、七彩仙缘、七彩锦绣、七彩虹霞、卧虎峡、七彩敖河和万象土林谷等7处观景点，有神龙戏火、灵猴观海、众僧拜佛、神龟问天、金蟾问道、大扇贝、七彩屏、睡美人、卧虎等景观30余处，是彩色丘陵与丹霞地貌的高度复合区。
      </p>

@@ -8,6 +8,11 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
+      <p style="text-align: center;">
+        <img
+            src="https://s3.bmp.ovh/imgs/2024/07/25/022fd354ffce20a9.jpg"
+            style="width: 60%;"/>
+      </p>
      <p class="inset-p">
       卓尔山坐落在海北州祁连县县城东北侧，八宝河北岸，与藏区神山阿咪东索（牛心山）隔河相望，是祁连县内有名的景点之一。
      </p>
