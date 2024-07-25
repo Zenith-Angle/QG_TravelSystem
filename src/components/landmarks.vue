@@ -8,6 +8,12 @@
         :modal="false"
         @close="resetDialog"
     >
+      <template #title>
+        <div class="custom-title">{{ selectedLandmark.name || 'Landmark Information' }}
+
+        </div>
+      </template>
+
       <!-- 添加按钮组 -->
       <el-button-group class="drawer-buttons">
         <el-button :type="showPieChart ? 'primary' : 'default'" @click="togglePieChart">
@@ -147,5 +153,17 @@ onUnmounted(() => {
 .drawer-buttons {
   text-align: center;
   margin-bottom: 10px;
+}
+
+.custom-title {
+  font-size: 36px; /* 调整字体大小 */
+  display: flex;
+  align-items: center;
+}
+
+.landmark-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px; /* 调整图片与文字之间的间距 */
 }
 </style>
