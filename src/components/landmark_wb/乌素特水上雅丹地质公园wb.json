@@ -20,6 +20,10 @@
         "value": 458
     },
     {
+        "name": "一半",
+        "value": 2
+    },
+    {
         "name": "海西",
         "value": 456
     },
@@ -44,20 +48,64 @@
         "value": 15
     },
     {
+        "name": "遗憾",
+        "value": 3
+    },
+    {
+        "name": "总",
+        "value": 3
+    },
+    {
         "name": "又",
         "value": 17
+    },
+    {
+        "name": "可",
+        "value": 3
+    },
+    {
+        "name": "可爱",
+        "value": 2
     },
     {
         "name": "爱",
         "value": 7
     },
     {
+        "name": "真正",
+        "value": 2
+    },
+    {
         "name": "的",
         "value": 264
     },
     {
+        "name": "可惜",
+        "value": 2
+    },
+    {
+        "name": "古德",
+        "value": 2
+    },
+    {
+        "name": "耐特",
+        "value": 2
+    },
+    {
+        "name": "漫长",
+        "value": 2
+    },
+    {
         "name": "不过",
         "value": 5
+    },
+    {
+        "name": "沿途",
+        "value": 4
+    },
+    {
+        "name": "山川",
+        "value": 4
     },
     {
         "name": "与",
@@ -66,6 +114,14 @@
     {
         "name": "也",
         "value": 24
+    },
+    {
+        "name": "长",
+        "value": 2
+    },
+    {
+        "name": "一路",
+        "value": 4
     },
     {
         "name": "阳光",
@@ -80,6 +136,10 @@
         "value": 8
     },
     {
+        "name": "再见",
+        "value": 3
+    },
+    {
         "name": "风景",
         "value": 13
     },
@@ -88,12 +148,28 @@
         "value": 68
     },
     {
+        "name": "深处",
+        "value": 2
+    },
+    {
         "name": "315",
         "value": 23
     },
     {
+        "name": "国",
+        "value": 3
+    },
+    {
+        "name": "道旁",
+        "value": 4
+    },
+    {
         "name": "有",
         "value": 14
+    },
+    {
+        "name": "一片",
+        "value": 2
     },
     {
         "name": "世界",
@@ -108,6 +184,10 @@
         "value": 6
     },
     {
+        "name": "独一无二",
+        "value": 3
+    },
+    {
         "name": "地貌",
         "value": 24
     },
@@ -116,8 +196,32 @@
         "value": 7
     },
     {
+        "name": "这片",
+        "value": 3
+    },
+    {
         "name": "没有",
         "value": 5
+    },
+    {
+        "name": "水",
+        "value": 2
+    },
+    {
+        "name": "于",
+        "value": 4
+    },
+    {
+        "name": "昆仑山",
+        "value": 3
+    },
+    {
+        "name": "那",
+        "value": 3
+    },
+    {
+        "name": "淹没",
+        "value": 2
     },
     {
         "name": "了",
@@ -148,6 +252,14 @@
         "value": 7
     },
     {
+        "name": "问",
+        "value": 3
+    },
+    {
+        "name": "里面",
+        "value": 2
+    },
+    {
         "name": "这个",
         "value": 6
     },
@@ -156,8 +268,16 @@
         "value": 5
     },
     {
+        "name": "望",
+        "value": 2
+    },
+    {
         "name": "着",
         "value": 18
+    },
+    {
+        "name": "他",
+        "value": 2
     },
     {
         "name": "啦",
@@ -188,16 +308,32 @@
         "value": 88
     },
     {
+        "name": "肉",
+        "value": 2
+    },
+    {
         "name": "吧",
         "value": 13
+    },
+    {
+        "name": "光",
+        "value": 3
     },
     {
         "name": "吃",
         "value": 7
     },
     {
+        "name": "得",
+        "value": 4
+    },
+    {
         "name": "不",
         "value": 19
+    },
+    {
+        "name": "点",
+        "value": 2
     },
     {
         "name": "天空",
@@ -208,12 +344,24 @@
         "value": 49
     },
     {
+        "name": "p",
+        "value": 2
+    },
+    {
         "name": "图",
         "value": 5
     },
     {
         "name": "都",
         "value": 20
+    },
+    {
+        "name": "不敢",
+        "value": 3
+    },
+    {
+        "name": "这种",
+        "value": 2
     },
     {
         "name": "315U",
@@ -232,8 +380,24 @@
         "value": 19
     },
     {
+        "name": "不仅",
+        "value": 2
+    },
+    {
         "name": "还有",
         "value": 6
+    },
+    {
+        "name": "自己",
+        "value": 3
+    },
+    {
+        "name": "拿",
+        "value": 2
+    },
+    {
+        "name": "打",
+        "value": 2
     },
     {
         "name": "青甘大",
@@ -242,6 +406,14 @@
     {
         "name": "环线",
         "value": 23
+    },
+    {
+        "name": "遇到",
+        "value": 3
+    },
+    {
+        "name": "一群",
+        "value": 2
     },
     {
         "name": "一天",
@@ -254,6 +426,10 @@
     {
         "name": "小时",
         "value": 5
+    },
+    {
+        "name": "找到",
+        "value": 2
     },
     {
         "name": "穿越",
@@ -272,20 +448,68 @@
         "value": 6
     },
     {
+        "name": "入住",
+        "value": 2
+    },
+    {
         "name": "火星",
         "value": 7
+    },
+    {
+        "name": "日",
+        "value": 4
+    },
+    {
+        "name": "治愈",
+        "value": 4
+    },
+    {
+        "name": "风吹",
+        "value": 4
     },
     {
         "name": "还",
         "value": 5
     },
     {
+        "name": "才",
+        "value": 2
+    },
+    {
+        "name": "好看",
+        "value": 3
+    },
+    {
+        "name": "生活",
+        "value": 4
+    },
+    {
+        "name": "记录",
+        "value": 4
+    },
+    {
         "name": "唯一",
         "value": 6
     },
     {
+        "name": "随手",
+        "value": 2
+    },
+    {
+        "name": "一拍",
+        "value": 2
+    },
+    {
         "name": "就是",
         "value": 10
+    },
+    {
+        "name": "每",
+        "value": 2
+    },
+    {
+        "name": "一张",
+        "value": 2
     },
     {
         "name": "喜欢",
@@ -294,6 +518,10 @@
     {
         "name": "多",
         "value": 6
+    },
+    {
+        "name": "已经",
+        "value": 3
     },
     {
         "name": "说",
@@ -312,24 +540,108 @@
         "value": 5
     },
     {
+        "name": "地方",
+        "value": 4
+    },
+    {
+        "name": "需要",
+        "value": 4
+    },
+    {
         "name": "不是",
         "value": 5
+    },
+    {
+        "name": "景色",
+        "value": 2
+    },
+    {
+        "name": "壮阔",
+        "value": 2
+    },
+    {
+        "name": "给",
+        "value": 4
+    },
+    {
+        "name": "一种",
+        "value": 2
     },
     {
         "name": "孤寂",
         "value": 5
     },
     {
+        "name": "感觉",
+        "value": 4
+    },
+    {
+        "name": "这么",
+        "value": 3
+    },
+    {
+        "name": "知道",
+        "value": 2
+    },
+    {
+        "name": "什么",
+        "value": 3
+    },
+    {
+        "name": "时候",
+        "value": 2
+    },
+    {
         "name": "被",
         "value": 16
+    },
+    {
+        "name": "发现",
+        "value": 2
+    },
+    {
+        "name": "开始",
+        "value": 3
     },
     {
         "name": "像",
         "value": 5
     },
     {
+        "name": "一只",
+        "value": 2
+    },
+    {
+        "name": "只",
+        "value": 2
+    },
+    {
+        "name": "第三天",
+        "value": 4
+    },
+    {
         "name": "中",
         "value": 11
+    },
+    {
+        "name": "一处",
+        "value": 3
+    },
+    {
+        "name": "汪洋",
+        "value": 2
+    },
+    {
+        "name": "遗落",
+        "value": 2
+    },
+    {
+        "name": "人间",
+        "value": 2
+    },
+    {
+        "name": "眼泪",
+        "value": 2
     },
     {
         "name": "生出",
@@ -340,12 +652,32 @@
         "value": 17
     },
     {
+        "name": "大漠",
+        "value": 3
+    },
+    {
+        "name": "黄沙",
+        "value": 3
+    },
+    {
         "name": "快乐",
         "value": 6
     },
     {
         "name": "今日",
         "value": 5
+    },
+    {
+        "name": "发",
+        "value": 3
+    },
+    {
+        "name": "为什么",
+        "value": 2
+    },
+    {
+        "name": "呢",
+        "value": 4
     },
     {
         "name": "人生",
@@ -356,8 +688,24 @@
         "value": 6
     },
     {
+        "name": "准备",
+        "value": 2
+    },
+    {
         "name": "就",
         "value": 10
+    },
+    {
+        "name": "海拔",
+        "value": 2
+    },
+    {
+        "name": "除了",
+        "value": 4
+    },
+    {
+        "name": "谁",
+        "value": 3
     },
     {
         "name": "只能",
@@ -366,6 +714,22 @@
     {
         "name": "去",
         "value": 13
+    },
+    {
+        "name": "高反",
+        "value": 2
+    },
+    {
+        "name": "可能",
+        "value": 2
+    },
+    {
+        "name": "平原",
+        "value": 2
+    },
+    {
+        "name": "会",
+        "value": 4
     },
     {
         "name": "沙漠",
@@ -380,8 +744,64 @@
         "value": 5
     },
     {
+        "name": "终",
+        "value": 2
+    },
+    {
+        "name": "回",
+        "value": 2
+    },
+    {
+        "name": "喝",
+        "value": 2
+    },
+    {
+        "name": "飞",
+        "value": 3
+    },
+    {
+        "name": "星星",
+        "value": 4
+    },
+    {
+        "name": "但",
+        "value": 4
+    },
+    {
         "name": "自由",
         "value": 14
+    },
+    {
+        "name": "照片",
+        "value": 4
+    },
+    {
+        "name": "画片",
+        "value": 2
+    },
+    {
+        "name": "集",
+        "value": 2
+    },
+    {
+        "name": "摄影",
+        "value": 2
+    },
+    {
+        "name": "G315315U",
+        "value": 2
+    },
+    {
+        "name": "外星人",
+        "value": 2
+    },
+    {
+        "name": "穿",
+        "value": 3
+    },
+    {
+        "name": "盐湖",
+        "value": 4
     },
     {
         "name": "风",
@@ -392,12 +812,24 @@
         "value": 17
     },
     {
+        "name": "有点",
+        "value": 4
+    },
+    {
         "name": "无人区",
         "value": 10
     },
     {
         "name": "旅行",
         "value": 25
+    },
+    {
+        "name": "丹霞",
+        "value": 2
+    },
+    {
+        "name": "莫高窟",
+        "value": 2
     },
     {
         "name": "翡翠",
@@ -420,8 +852,16 @@
         "value": 10
     },
     {
+        "name": "面前",
+        "value": 2
+    },
+    {
         "name": "我们",
         "value": 6
+    },
+    {
+        "name": "渺小",
+        "value": 2
     },
     {
         "name": "之",
@@ -432,16 +872,60 @@
         "value": 10
     },
     {
+        "name": "网红",
+        "value": 3
+    },
+    {
+        "name": "各种",
+        "value": 4
+    },
+    {
+        "name": "紫外线",
+        "value": 2
+    },
+    {
         "name": "大西北",
         "value": 19
+    },
+    {
+        "name": "真",
+        "value": 3
+    },
+    {
+        "name": "吹",
+        "value": 2
+    },
+    {
+        "name": "晒",
+        "value": 3
+    },
+    {
+        "name": "伤",
+        "value": 2
     },
     {
         "name": "拍",
         "value": 6
     },
     {
+        "name": "毕业",
+        "value": 2
+    },
+    {
+        "name": "照",
+        "value": 2
+    },
+    {
+        "name": "一点",
+        "value": 4
+    },
+    {
         "name": "一样",
         "value": 6
+    },
+    {
+        "name": "辣",
+        "value": 2
     },
     {
         "name": "坐",
@@ -452,8 +936,36 @@
         "value": 5
     },
     {
+        "name": "一",
+        "value": 3
+    },
+    {
+        "name": "早上",
+        "value": 2
+    },
+    {
+        "name": "总是",
+        "value": 2
+    },
+    {
+        "name": "大风",
+        "value": 2
+    },
+    {
+        "name": "呼呼",
+        "value": 3
+    },
+    {
+        "name": "且",
+        "value": 3
+    },
+    {
         "name": "路上",
         "value": 9
+    },
+    {
+        "name": "尘土",
+        "value": 2
     },
     {
         "name": "自驾",
@@ -464,32 +976,148 @@
         "value": 5
     },
     {
+        "name": "一生",
+        "value": 2
+    },
+    {
+        "name": "值得",
+        "value": 4
+    },
+    {
         "name": "走",
         "value": 6
+    },
+    {
+        "name": "贫瘠",
+        "value": 2
     },
     {
         "name": "浪漫",
         "value": 12
     },
     {
+        "name": "茫茫",
+        "value": 2
+    },
+    {
+        "name": "风沙",
+        "value": 3
+    },
+    {
+        "name": "美美",
+        "value": 2
+    },
+    {
+        "name": "好多",
+        "value": 2
+    },
+    {
         "name": "鬼斧神工",
         "value": 6
+    },
+    {
+        "name": "青海湖",
+        "value": 3
+    },
+    {
+        "name": "蓝",
+        "value": 3
+    },
+    {
+        "name": "茶卡盐湖",
+        "value": 3
+    },
+    {
+        "name": "山河",
+        "value": 2
     },
     {
         "name": "最美",
         "value": 6
     },
     {
+        "name": "上海",
+        "value": 3
+    },
+    {
+        "name": "西",
+        "value": 4
+    },
+    {
+        "name": "夜空",
+        "value": 2
+    },
+    {
+        "name": "星海",
+        "value": 4
+    },
+    {
+        "name": "拍照",
+        "value": 2
+    },
+    {
+        "name": "疗养院",
+        "value": 2
+    },
+    {
         "name": "你",
         "value": 12
+    },
+    {
+        "name": "辽阔",
+        "value": 2
+    },
+    {
+        "name": "看看",
+        "value": 2
+    },
+    {
+        "name": "昨天",
+        "value": 3
+    },
+    {
+        "name": "日记",
+        "value": 2
     },
     {
         "name": "到",
         "value": 16
     },
     {
+        "name": "敦煌",
+        "value": 4
+    },
+    {
+        "name": "自由自在",
+        "value": 2
+    },
+    {
+        "name": "新疆",
+        "value": 3
+    },
+    {
+        "name": "第四站",
+        "value": 2
+    },
+    {
+        "name": "u",
+        "value": 3
+    },
+    {
+        "name": "一些",
+        "value": 4
+    },
+    {
         "name": "事",
         "value": 5
+    },
+    {
+        "name": "整理",
+        "value": 2
+    },
+    {
+        "name": "素材",
+        "value": 2
     },
     {
         "name": "特别",
@@ -500,8 +1128,88 @@
         "value": 5
     },
     {
+        "name": "脱离现实",
+        "value": 2
+    },
+    {
+        "name": "存在",
+        "value": 4
+    },
+    {
+        "name": "不再",
+        "value": 3
+    },
+    {
+        "name": "是从",
+        "value": 2
+    },
+    {
+        "name": "钢筋水泥",
+        "value": 2
+    },
+    {
+        "name": "寻找",
+        "value": 3
+    },
+    {
+        "name": "审美",
+        "value": 4
+    },
+    {
+        "name": "慰藉",
+        "value": 2
+    },
+    {
+        "name": "而是",
+        "value": 3
+    },
+    {
+        "name": "将",
+        "value": 2
+    },
+    {
+        "name": "身心",
+        "value": 2
+    },
+    {
+        "name": "全然",
+        "value": 2
+    },
+    {
+        "name": "托付给",
+        "value": 2
+    },
+    {
         "name": "大地",
         "value": 6
+    },
+    {
+        "name": "合集",
+        "value": 2
+    },
+    {
+        "name": "来到",
+        "value": 3
+    },
+    {
+        "name": "海边",
+        "value": 2
+    },
+    {
+        "name": "真是",
+        "value": 2
+    },
+    {
+        "name": "遗失",
+        "value": 2
+    },
+    {
+        "name": "站",
+        "value": 3
+    },
+    {
+        "name": "无人之境",
+        "value": 2
     },
     {
         "name": "荒芜",
@@ -512,20 +1220,88 @@
         "value": 8
     },
     {
+        "name": "day2",
+        "value": 2
+    },
+    {
+        "name": "西部",
+        "value": 2
+    },
+    {
+        "name": "陆止",
+        "value": 2
+    },
+    {
+        "name": "斯",
+        "value": 2
+    },
+    {
         "name": "好",
         "value": 13
+    },
+    {
+        "name": "天",
+        "value": 2
+    },
+    {
+        "name": "号",
+        "value": 2
     },
     {
         "name": "星球",
         "value": 5
     },
     {
+        "name": "任务",
+        "value": 2
+    },
+    {
+        "name": "明天",
+        "value": 2
+    },
+    {
+        "name": "祖国",
+        "value": 2
+    },
+    {
+        "name": "神奇",
+        "value": 4
+    },
+    {
+        "name": "该",
+        "value": 3
+    },
+    {
+        "name": "武周",
+        "value": 2
+    },
+    {
         "name": "但是",
         "value": 8
     },
     {
+        "name": "越",
+        "value": 3
+    },
+    {
+        "name": "觉得",
+        "value": 2
+    },
+    {
+        "name": "女性",
+        "value": 2
+    },
+    {
         "name": "出来",
         "value": 5
+    },
+    {
+        "name": "西宁",
+        "value": 2
+    },
+    {
+        "name": "全程",
+        "value": 2
     },
     {
         "name": "一个",
@@ -536,6 +1312,34 @@
         "value": 15
     },
     {
+        "name": "奢",
+        "value": 2
+    },
+    {
+        "name": "不止",
+        "value": 2
+    },
+    {
+        "name": "Day3",
+        "value": 4
+    },
+    {
+        "name": "315u",
+        "value": 3
+    },
+    {
+        "name": "所",
+        "value": 2
+    },
+    {
+        "name": "环绕",
+        "value": 2
+    },
+    {
+        "name": "探索",
+        "value": 2
+    },
+    {
         "name": "之眼",
         "value": 21
     },
@@ -544,12 +1348,52 @@
         "value": 5
     },
     {
+        "name": "背后",
+        "value": 2
+    },
+    {
+        "name": "终于",
+        "value": 2
+    },
+    {
+        "name": "日出",
+        "value": 2
+    },
+    {
+        "name": "期待",
+        "value": 3
+    },
+    {
+        "name": "意外",
+        "value": 2
+    },
+    {
         "name": "美",
         "value": 6
     },
     {
         "name": "美丽",
         "value": 5
+    },
+    {
+        "name": "太",
+        "value": 2
+    },
+    {
+        "name": "根本",
+        "value": 3
+    },
+    {
+        "name": "能",
+        "value": 4
+    },
+    {
+        "name": "看见",
+        "value": 3
+    },
+    {
+        "name": "跑",
+        "value": 2
     },
     {
         "name": "台",
@@ -568,8 +1412,32 @@
         "value": 12
     },
     {
+        "name": "G315U",
+        "value": 2
+    },
+    {
         "name": "个",
         "value": 6
+    },
+    {
+        "name": "呀",
+        "value": 3
+    },
+    {
+        "name": "贴",
+        "value": 2
+    },
+    {
+        "name": "啊",
+        "value": 2
+    },
+    {
+        "name": "Day2",
+        "value": 2
+    },
+    {
+        "name": "追赶",
+        "value": 2
     },
     {
         "name": "看到",
@@ -580,20 +1448,96 @@
         "value": 6
     },
     {
+        "name": "满天",
+        "value": 2
+    },
+    {
+        "name": "繁星",
+        "value": 3
+    },
+    {
+        "name": "夜晚",
+        "value": 3
+    },
+    {
+        "name": "九点",
+        "value": 2
+    },
+    {
+        "name": "从",
+        "value": 2
+    },
+    {
         "name": "晚上",
         "value": 5
+    },
+    {
+        "name": "开车",
+        "value": 2
+    },
+    {
+        "name": "公里",
+        "value": 3
     },
     {
         "name": "山丘",
         "value": 5
     },
     {
+        "name": "书上",
+        "value": 4
+    },
+    {
+        "name": "经历",
+        "value": 2
+    },
+    {
         "name": "沙尘暴",
         "value": 5
     },
     {
+        "name": "live",
+        "value": 3
+    },
+    {
         "name": "国道",
         "value": 10
+    },
+    {
+        "name": "说走就走",
+        "value": 2
+    },
+    {
+        "name": "草原",
+        "value": 2
+    },
+    {
+        "name": "辣妹",
+        "value": 2
+    },
+    {
+        "name": "变成",
+        "value": 2
+    },
+    {
+        "name": "更",
+        "value": 2
+    },
+    {
+        "name": "美的",
+        "value": 2
+    },
+    {
+        "name": "总要",
+        "value": 3
+    },
+    {
+        "name": "张新成",
+        "value": 2
+    },
+    {
+        "name": "乌托邦",
+        "value": 3
     },
     {
         "name": "营地",
@@ -604,20 +1548,160 @@
         "value": 6
     },
     {
+        "name": "露营",
+        "value": 2
+    },
+    {
+        "name": "帐篷",
+        "value": 2
+    },
+    {
+        "name": "房车",
+        "value": 4
+    },
+    {
+        "name": "哈哈",
+        "value": 2
+    },
+    {
+        "name": "逐渐",
+        "value": 3
+    },
+    {
+        "name": "一边",
+        "value": 2
+    },
+    {
+        "name": "一望无际",
+        "value": 2
+    },
+    {
+        "name": "却",
+        "value": 4
+    },
+    {
+        "name": "东台",
+        "value": 3
+    },
+    {
+        "name": "好像",
+        "value": 2
+    },
+    {
+        "name": "她",
+        "value": 3
+    },
+    {
+        "name": "孤",
+        "value": 2
+    },
+    {
+        "name": "所以",
+        "value": 2
+    },
+    {
+        "name": "永远",
+        "value": 2
+    },
+    {
+        "name": "满足",
+        "value": 2
+    },
+    {
+        "name": "算是",
+        "value": 2
+    },
+    {
+        "name": "生日",
+        "value": 3
+    },
+    {
+        "name": "眼睛",
+        "value": 2
+    },
+    {
+        "name": "落日余晖",
+        "value": 2
+    },
+    {
+        "name": "等",
+        "value": 2
+    },
+    {
+        "name": "啥",
+        "value": 2
+    },
+    {
+        "name": "没",
+        "value": 3
+    },
+    {
+        "name": "带",
+        "value": 4
+    },
+    {
         "name": "微博去",
         "value": 5
+    },
+    {
+        "name": "手机",
+        "value": 2
+    },
+    {
+        "name": "的话",
+        "value": 2
+    },
+    {
+        "name": "想",
+        "value": 2
+    },
+    {
+        "name": "四个",
+        "value": 3
+    },
+    {
+        "name": "景点",
+        "value": 2
     },
     {
         "name": "共存",
         "value": 14
     },
     {
+        "name": "懂",
+        "value": 2
+    },
+    {
+        "name": "于是",
+        "value": 2
+    },
+    {
+        "name": "曾",
+        "value": 2
+    },
+    {
+        "name": "30",
+        "value": 2
+    },
+    {
+        "name": "沙尘",
+        "value": 3
+    },
+    {
         "name": "天气",
         "value": 6
     },
     {
+        "name": "第一次",
+        "value": 3
+    },
+    {
         "name": "日落",
         "value": 5
+    },
+    {
+        "name": "察尔汗盐湖",
+        "value": 3
     },
     {
         "name": "体验",
@@ -626,6 +1710,10 @@
     {
         "name": "一下",
         "value": 5
+    },
+    {
+        "name": "住",
+        "value": 4
     },
     {
         "name": "乌素",
@@ -640,20 +1728,352 @@
         "value": 15
     },
     {
+        "name": "途径",
+        "value": 3
+    },
+    {
+        "name": "往",
+        "value": 2
+    },
+    {
+        "name": "这样",
+        "value": 2
+    },
+    {
+        "name": "柴旦湖",
+        "value": 4
+    },
+    {
+        "name": "热",
+        "value": 3
+    },
+    {
+        "name": "冷",
+        "value": 3
+    },
+    {
+        "name": "实在",
+        "value": 2
+    },
+    {
+        "name": "怎么",
+        "value": 2
+    },
+    {
+        "name": "消失",
+        "value": 2
+    },
+    {
+        "name": "虽然",
+        "value": 2
+    },
+    {
+        "name": "漫天",
+        "value": 4
+    },
+    {
         "name": "而",
         "value": 7
+    },
+    {
+        "name": "沙丘",
+        "value": 2
+    },
+    {
+        "name": "看不完",
+        "value": 2
+    },
+    {
+        "name": "用",
+        "value": 2
+    },
+    {
+        "name": "主打",
+        "value": 2
     },
     {
         "name": "见到",
         "value": 5
     },
     {
+        "name": "DAY3",
+        "value": 2
+    },
+    {
         "name": "吗",
         "value": 5
     },
     {
+        "name": "无人机",
+        "value": 2
+    },
+    {
+        "name": "大家",
+        "value": 2
+    },
+    {
+        "name": "一起",
+        "value": 2
+    },
+    {
+        "name": "因为",
+        "value": 2
+    },
+    {
         "name": "格尔木",
         "value": 5
+    },
+    {
+        "name": "一号",
+        "value": 2
+    },
+    {
+        "name": "路过",
+        "value": 2
+    },
+    {
+        "name": "车",
+        "value": 2
+    },
+    {
+        "name": "哇",
+        "value": 2
+    },
+    {
+        "name": "然后",
+        "value": 2
+    },
+    {
+        "name": "此",
+        "value": 4
+    },
+    {
+        "name": "魔幻",
+        "value": 2
+    },
+    {
+        "name": "神秘",
+        "value": 3
+    },
+    {
+        "name": "烈日",
+        "value": 2
+    },
+    {
+        "name": "plog",
+        "value": 2
+    },
+    {
+        "name": "纪念册",
+        "value": 2
+    },
+    {
+        "name": "温柔",
+        "value": 4
+    },
+    {
+        "name": "日晒",
+        "value": 2
+    },
+    {
+        "name": "自",
+        "value": 2
+    },
+    {
+        "name": "咖啡",
+        "value": 2
+    },
+    {
+        "name": "南",
+        "value": 2
+    },
+    {
+        "name": "八仙",
+        "value": 2
+    },
+    {
+        "name": "地理",
+        "value": 3
+    },
+    {
+        "name": "没错",
+        "value": 2
+    },
+    {
+        "name": "过",
+        "value": 3
+    },
+    {
+        "name": "月",
+        "value": 2
+    },
+    {
+        "name": "景区",
+        "value": 2
+    },
+    {
+        "name": "皆",
+        "value": 2
+    },
+    {
+        "name": "几个",
+        "value": 2
+    },
+    {
+        "name": "全世界",
+        "value": 2
+    },
+    {
+        "name": "太阳",
+        "value": 2
+    },
+    {
+        "name": "可以",
+        "value": 4
+    },
+    {
+        "name": "刺激",
+        "value": 4
+    },
+    {
+        "name": "结果",
+        "value": 3
+    },
+    {
+        "name": "甘大",
+        "value": 2
+    },
+    {
+        "name": "雅",
+        "value": 2
+    },
+    {
+        "name": "丹青",
+        "value": 2
+    },
+    {
+        "name": "时间",
+        "value": 3
+    },
+    {
+        "name": "小朋友",
+        "value": 2
+    },
+    {
+        "name": "高原",
+        "value": 2
+    },
+    {
+        "name": "土地",
+        "value": 2
+    },
+    {
+        "name": "玫瑰",
+        "value": 2
+    },
+    {
+        "name": "如果",
+        "value": 2
+    },
+    {
+        "name": "并非",
+        "value": 2
+    },
+    {
+        "name": "寸草不生",
+        "value": 2
+    },
+    {
+        "name": "好好",
+        "value": 2
+    },
+    {
+        "name": "乌苏",
+        "value": 2
+    },
+    {
+        "name": "独有",
+        "value": 2
+    },
+    {
+        "name": "只有",
+        "value": 3
+    },
+    {
+        "name": "玩",
+        "value": 2
+    },
+    {
+        "name": "不能",
+        "value": 2
+    },
+    {
+        "name": "一把",
+        "value": 2
+    },
+    {
+        "name": "共生",
+        "value": 3
+    },
+    {
+        "name": "常有",
+        "value": 4
+    },
+    {
+        "name": "蓝色",
+        "value": 2
+    },
+    {
+        "name": "湖水",
+        "value": 2
+    },
+    {
+        "name": "水里",
+        "value": 2
+    },
+    {
+        "name": "便",
+        "value": 2
+    },
+    {
+        "name": "离开",
+        "value": 2
+    },
+    {
+        "name": "拜托",
+        "value": 2
+    },
+    {
+        "name": "飞禽",
+        "value": 2
+    },
+    {
+        "name": "我来",
+        "value": 2
+    },
+    {
+        "name": "德克士",
+        "value": 2
+    },
+    {
+        "name": "三月",
+        "value": 3
+    },
+    {
+        "name": "七",
+        "value": 3
+    },
+    {
+        "name": "就要",
+        "value": 2
+    },
+    {
+        "name": "深夜",
+        "value": 2
+    },
+    {
+        "name": "行程",
+        "value": 3
     },
     {
         "name": "游客",
@@ -662,5 +2082,57 @@
     {
         "name": "服务中心",
         "value": 11
+    },
+    {
+        "name": "太美",
+        "value": 2
+    },
+    {
+        "name": "过生日",
+        "value": 2
+    },
+    {
+        "name": "重要",
+        "value": 2
+    },
+    {
+        "name": "咯",
+        "value": 2
+    },
+    {
+        "name": "一站",
+        "value": 3
+    },
+    {
+        "name": "Day4",
+        "value": 3
+    },
+    {
+        "name": "ps",
+        "value": 2
+    },
+    {
+        "name": "属于",
+        "value": 2
+    },
+    {
+        "name": "快",
+        "value": 2
+    },
+    {
+        "name": "小时候",
+        "value": 2
+    },
+    {
+        "name": "冒险岛",
+        "value": 2
+    },
+    {
+        "name": "叫醒",
+        "value": 2
+    },
+    {
+        "name": "旷野",
+        "value": 2
     }
 ]
