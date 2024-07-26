@@ -9,11 +9,7 @@
         <p>这是一个基于ArcGIS Map SDK for
           JavaScript的WebGIS项目。目的是建立一个以青甘大环线为主要区域的旅游规划应用</p>
         <div class="author-info">
-          <el-image
-              style="width: 50px; height: 50px; border-radius: 50%;"
-              src="author_avatar_url.jpg"
-              fit="cover">
-          </el-image>
+
           <a href="https://github.com/Zenith-Angle/QG_TravelSystem" target="_blank">
             <img src="@/assets/images/github.svg" alt="GitHub"
                  style="width: 50px; height: 50px;">
@@ -47,12 +43,12 @@ export default {
 <style scoped>
 #info {
   top: 120px;
-  right: 30%;
+  right: 35%;
 }
 
 #box-card {
-  width: 600px;
-  height: 400px;
+  width: 400px;
+  height: 300px;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(8px);
   border-radius: 20px;
