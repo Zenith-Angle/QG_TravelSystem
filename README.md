@@ -98,7 +98,7 @@
 可能的高阻塞区域作为*avoidpolygons*参数传递给高德地图API
 
 关于这个道路阻塞模型，可以参考文档：
-
+[青甘大环线交通堵塞模型](https://zenithangle.top/archives/5ba2ab0b-462f-4ac1-8979-bdd0784b6534)
 
 
 ### 周边查询功能
