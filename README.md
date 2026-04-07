@@ -1,148 +1,284 @@
-# 青甘大环线旅游服务系统
+# 青甘大环线智能旅游服务系统
+
+<p align="center">
+  <strong>面向青甘大环线自驾与自由行场景的 WebGIS 旅游规划应用</strong>
+</p>
+
+<p align="center">
+  <img alt="Vue" src="https://img.shields.io/badge/Vue-3.4-42b883?logo=vuedotjs&logoColor=white">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-5.1-646cff?logo=vite&logoColor=white">
+  <img alt="ArcGIS" src="https://img.shields.io/badge/ArcGIS%20Maps%20SDK-4.29-2c7ac3">
+  <img alt="Element Plus" src="https://img.shields.io/badge/Element%20Plus-2.6-409eff">
+  <img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-blue">
+</p>
+
+<p align="center">
+  <a href="https://qg.zenithangle.top/">在线预览</a>
+  ·
+  <a href="#快速开始">快速开始</a>
+  ·
+  <a href="#功能特性">功能特性</a>
+  ·
+  <a href="./README/README_EN.md">English README</a>
+  ·
+  <a href="https://zenithangle.top/archives/qinghai-gansu-grand-ring-road-tourism-service-system">English Article</a>
+</p>
 
 ---
-# 项目预览：
-您可以通过访问：
 
-[青甘大环线智能旅游服务系统](https://qg.zenithangle.top/)
-来预览本系统
+## 项目简介
 
-You can visit the [Qinghai-Gansu Grand Ring Road Tourism Service System](https://zenithangle.top/archives/qinghai-gansu-grand-ring-road-tourism-service-system)
-to view the English version of the README.
+青甘大环线智能旅游服务系统是一个基于 **ArcGIS Maps SDK for JavaScript** 与 **Vue 3** 的 WebGIS 应用，围绕青海、甘肃环线旅行中的“去哪儿、怎么走、周边有什么、天气如何”等核心问题，提供地图浏览、行政区搜索、路线规划、天气查询、周边 POI 检索、专题图层切换与景点数据可视化能力。
 
----
-## 项目配置
-### keys.json配置方式
-本项目主要使用了天地图API，高德地图的API，和风天气的API，如果您想要使用本项目，您需要在项目src目录下创建一个`keys.json`文件，文件内容如下：
+项目适合用于：
+
+- 青甘大环线旅游规划、行程辅助与 WebGIS 教学展示；
+- 多源地图服务、第三方位置服务 API 与前端可视化的集成示例；
+- Vue + ArcGIS Maps SDK + Element Plus 的地图类前端项目参考。
+
+> 如果在线预览不可用，可按下方“快速开始”在本地运行。
+
+## 功能特性
+
+- 🗺️ **多源地图底图**：支持天地图矢量、天地图影像、天地图地形晕染与 OpenStreetMap 底图切换。
+- 🔥 **专题图层展示**：内置青甘大环线热力图、交通图层与景点要素图层。
+- 🔎 **行政区与坐标搜索**：支持按省 / 市 / 县级行政区搜索，也支持 `纬度,经度` 格式定位。
+- 🌦️ **实时天气查询**：基于地图中心点查询附近城市与实时天气信息。
+- 🧭 **位置查询与手动选点**：支持浏览器定位，也可在地图上手动选择当前位置。
+- 🚗 **驾车路线规划**：输入起点、终点后绘制路径，并接入道路阻塞模型生成避让区域。
+- 🏨 **周边 POI 查询**：以当前地图中心为基准检索餐饮、酒店、公交、加油站等周边服务。
+- 📊 **景点数据可视化**：点击景点后展示详情，并可查看情感分析饼图与微博文本词云。
+- 🧹 **临时图层管理**：支持清空搜索点、路线、周边范围等临时绘制内容。
+
+## 项目截图
+
+| 搜索与行政区信息 | 天气信息 |
+| --- | --- |
+| ![行政区信息](./README/img_1.png) | ![天气信息](./README/img_4.png) |
+
+| 搜索框 | 天气入口 |
+| --- | --- |
+| ![搜索框](./README/img.png) | ![天气入口](./README/img_3.png) |
+
+## 技术栈
+
+| 分类 | 技术 |
+| --- | --- |
+| 前端框架 | Vue 3、Vite |
+| 地图能力 | ArcGIS Maps SDK for JavaScript、天地图、OpenStreetMap |
+| UI 组件 | Element Plus、@element-plus/icons-vue |
+| 状态管理 | Pinia |
+| 数据请求 | Axios、Fetch API |
+| 可视化 | ECharts、echarts-wordcloud |
+| 外部服务 | 高德地图 Web 服务 API、和风天气 API、ArcGIS Server / GeoScene 服务 |
+
+## 系统架构
+
+```mermaid
+flowchart LR
+  User["用户浏览器"] --> App["Vue 3 + Vite 前端"]
+  App --> UI["Element Plus 交互组件"]
+  App --> Store["Pinia 地图状态"]
+  App --> MapView["ArcGIS MapView"]
+  MapView --> Basemap["天地图 / OSM 底图"]
+  MapView --> Layers["热力图 / 交通图 / 景点图层"]
+  App --> AMap["高德地图 API\n行政区 / 地理编码 / 周边 / 路径"]
+  App --> QWeather["和风天气 API"]
+  App --> Charts["ECharts 饼图 / 词云"]
+```
+
+## 快速开始
+
+### 环境要求
+
+- Node.js 18+（推荐使用与 Vite 5 兼容的 LTS 版本）
+- npm 9+（项目已包含 `package-lock.json`，推荐使用 npm 安装依赖）
+- 可访问天地图、高德地图、和风天气及项目中配置的 ArcGIS / GeoScene 服务
+
+### 1. 克隆项目
+
+```bash
+git clone <your-repository-url>
+cd QG_TravelSystem
+```
+
+### 2. 安装依赖
+
+```bash
+npm install
+```
+
+### 3. 配置 API Key
+
+在 `src` 目录下创建本地配置文件 `keys.json`：
+
 ```json
 {
-  "tiandituKey": "天地图API",
-  "AMAP_KEY": "高德地图API_1",
-  "AMAP_API_KEY": "高德地图API_2",
-  "apiKey": "和风天气API"
+  "tiandituKey": "your-tianditu-key",
+  "AMAP_KEY": "your-amap-web-service-key",
+  "AMAP_API_KEY": "your-amap-js-api-key-or-compatible-key",
+  "apiKey": "your-qweather-key"
 }
 ```
 
-具体API的申请地址分别为：
-    [天地图API](http://lbs.tianditu.gov.cn/home.html)
-    [高德地图API](https://lbs.amap.com/)
-    [和风天气API](https://dev.qweather.com/)
+字段说明：
 
----
-## 项目介绍
+| 字段 | 用途 |
+| --- | --- |
+| `tiandituKey` | 天地图 WMTS 底图服务 Key |
+| `AMAP_KEY` | 高德地图 Web 服务 Key，用于行政区查询、地理编码、周边搜索与驾车路径规划 |
+| `AMAP_API_KEY` | 高德地图 JS API / 兼容字段，保留以匹配现有项目配置 |
+| `apiKey` | 和风天气 API Key，用于城市查询与实时天气查询 |
 
-这是一个基于ArcGIS Map SDK for JavaScript的WebGIS项目。目的是建立一个以青甘大环线为主要区域的旅游规划应用
+> `keys.json` 包含敏感信息，应只保存在本地环境中，不要提交到公开仓库。项目的 `.gitignore` 已忽略该文件名。
 
-项目技术栈为: `ArcGIS Map SDK for JavaScript` + `VUE` + `TypeScript` + `Element Plus` + `Axios` + `Echarts`
+### 4. 启动开发服务
 
-青甘大环线，以其独特的自然风光、丰富的文化遗产和各具特色的地理环境，成为自驾旅行爱好者的热门选择之一。
-然而，这条路线因其地理位置特殊，天气变化无常，给游客的行程安排和安全带来了不小的挑战。从路线规划到住宿选择，
-再到应对高原反应等突发状况，游客需要面对诸多不确定性。这些挑战不仅可能影响旅行的体验，更可能对游客的安全构成威胁。
-考虑到上述背景，我们认识到为游客提供一个集成化、智能化的旅游服务系统是十分必要的。该系统能够帮助游客更好地规划旅程、
-应对突发情况，提升旅行体验。此外，随着智能手机和移动互联网的普及，利用技术手段解决旅游中的问题变得更加可行和有效。
+```bash
+npm run dev
+```
 
----
+启动后，根据终端输出访问本地开发地址，通常为：
 
-## 项目服务功能
+```text
+http://localhost:5173/
+```
 
-### 搜索功能
+### 5. 构建与预览
 
->目前的搜索功能基于[高德地图的行政区划搜索API](https://lbs.amap.com/api/webservice/guide/api/district)
-实现
+```bash
+npm run build
+npm run preview
+```
 
-用户可以通过至多到县级行政区的关键字搜索，系统会将地图中心移动到指定位置
-同时会在返回的地点上添加一个标记，点击标记可以查看该地的名称以及经纬度信息
-例如输入：
+## 常用脚本
 
-> 甘肃/兰州/城关区
+| 命令 | 说明 |
+| --- | --- |
+| `npm run dev` | 启动 Vite 开发服务器 |
+| `npm run build` | 构建生产环境静态资源 |
+| `npm run preview` | 本地预览生产构建结果 |
 
+## 目录结构
 
-除此以外，用户还可以输入经纬度是数据，输入格式为"纬度,经度"，系统会将地图中心移动到指定位置.
-例如输入：
+```text
+QG_TravelSystem/
+├── README.md                 # 项目说明文档
+├── README/                   # README 截图与英文文档
+├── public/                   # 静态公共资源
+├── src/
+│   ├── App.vue               # 应用根组件
+│   ├── main.js               # 应用入口与全局配置
+│   ├── map.vue               # 地图容器、底图切换与地图控件
+│   ├── menu.vue              # 功能菜单入口
+│   ├── search_bar.vue        # 行政区 / 坐标搜索
+│   ├── top_bar.vue           # 顶部栏组件
+│   ├── assets/               # 图标、样式与图片资源
+│   ├── components/           # 地图功能、图表、景点详情等业务组件
+│   ├── stores/               # Pinia 状态管理
+│   └── types/                # 类型声明
+├── index.html                # Vite HTML 入口
+├── package.json              # 依赖与脚本配置
+├── package-lock.json         # npm 锁定文件
+├── tsconfig.json             # TypeScript 配置
+└── vite.config.js            # Vite 配置
+```
 
-> 104.154319,35.943354
+## 核心功能说明
 
-### 天气查询功能
+### 行政区 / 坐标搜索
 
->该功能基于[和风天气API](https://dev.qweather.com/docs/api/weather/weather-now/)
-实现
+搜索框支持两类输入：
 
-用户可以通过点击地图上的按钮来查询当前地图中心所在行政区的天气信息
+- 行政区关键字：如 `甘肃`、`兰州`、`城关区`；
+- 经纬度坐标：格式为 `纬度,经度`，如 `35.943354,104.154319`。
 
-单击该按钮，可以在地图上显示或关闭显示一个天气卡片：
+搜索成功后，地图会移动到目标位置，并在临时图层中绘制标记点。
 
-点击下方的查询天气按钮，可以以当前地图中心所在行政区(至多到县级)的区域内最近
-的天气状况。内容数据包括：
+### 天气查询
 
-> 地点、天气状况、温度、体感温度、湿度、降水量、观测时间
+天气模块会读取当前地图中心点坐标，调用和风天气城市查询与实时天气接口，展示地点、天气状况、温度、体感温度、湿度、降水量与观测时间。
 
-### 位置查询及选择功能
+### 路线规划
 
-用户可以通过点击地图上的`获取当前位置`按钮来查询当前地图中心所在位置的经纬度信息
+路线规划模块使用高德地图地理编码与驾车路径规划接口。系统会先把起点、终点转换为经纬度，再请求道路阻塞模型生成可避让区域，最后绘制路线、起终点和相关临时图层。
 
-目前改功能基于Html5的Geolocation API实现，所以在复杂网络环境
-，如代理，多层NAT等情况 下可能无法获取到用户的位置信息或获取的
-信息不准确
+道路阻塞模型说明可参考：[青甘大环线交通堵塞模型](https://zenithangle.top/archives/5ba2ab0b-462f-4ac1-8979-bdd0784b6534)。
 
-为了解决这个问题，如果您知道自己当前的位置，可以使用`手动选择位置`按钮
-来自行选择一个位置，系统会将地图中心移动到指定位置。当再次点击后
-可以退出该模式。
+### 周边查询
 
-### 路线规划功能
->该功能基于[高德地图的驾车路径规划API](https://lbs.amap.com/api/webservice/guide/api/direction)
-实现
-
-当点击`路线`按钮后，会出现一个弹窗卡片，用户可以输入起点和终点
-的名称，再点击其中的`确认`按钮，系统会在地图上显示出一条从起点到终点的驾车路线
-
-重复点击`路线`按钮可以开关输入框的显示
-
-在这个请求的过程中，会根据一个道路阻塞模型，将16个范围内
-可能的高阻塞区域作为*avoidpolygons*参数传递给高德地图API
-
-关于这个道路阻塞模型，可以参考文档：
-[青甘大环线交通堵塞模型](https://zenithangle.top/archives/5ba2ab0b-462f-4ac1-8979-bdd0784b6534)
-
-
-### 周边查询功能
->该功能基于[高德地图的周边搜索API](https://lbs.amap.com/api/webservice/guide/api/search)
-实现
-
->使用该功能前，强烈建议先获取用户的当前位置或手动选择一个位置，以便于更好的查询周边信息
-
-当点击`周边`按钮后，会出现四个选项，分别是`餐饮`、`住宿`、`景点`、`加油站`，用户
-可以选择其中一个选项进行点击，
-系统会以在地图上显示出当前地图中心附近的对应类型的地点
-
-用户可以点击地图上添加的点，点击后会出现一个气泡弹窗，显示该地点的名称、地址、距离等信息
-
-> 注意：由于高德地图API的限制，周边查询的范围是以当前地图中心为中心的一个圆形区域
-> 且最大半径为5000米，所以在某些情况下，可能无法查询到周边信息
-
----
-## 项目地图功能
-
+周边模块以当前地图中心为基准，检索餐饮、酒店、公交、加油站等 POI，并在地图上绘制范围与结果点。点击结果点可查看名称、地址、类型、距离等信息。
 
 ### 图层切换
-点击右侧的图层切换按钮，可以切换地图的底图。
 
-目前提供了三种天地图的底图，分别是：`矢量底图`、`卫星影像图`、`地形渲染图`
-这三种数据来自于[天地图开发资源地图API](http://lbs.tianditu.gov.cn/server/MapService.html)
+图层面板支持切换：
 
-除此以外，还提供了OSM的底图，数据来自于[OpenStreetMap](https://www.openstreetmap.org/)
+- 天地图矢量底图；
+- 天地图影像底图；
+- 天地图地形晕染；
+- OpenStreetMap；
+- 青甘大环线热力图；
+- 青甘大环线交通图。
 
-在众源的网络图层之外，本项目中还制作了热力图和交通图层。
-#### 热力图
-本次的热力图制作是利用通过爬取2023年范围内的微博签到数据及其
-内容进行绘制。同时在各个景点的位置辅以百度指数进行绘制。
+### 景点详情与可视化
 
-在范围内，对应的微博数据密度越高，百度指数越高，反应这个区域热度
-越高，在热力图中反应为越趋近于红色；反之，则趋近于蓝色
+点击景点图层中的要素后，右侧抽屉会展示景点介绍，并支持打开：
 
-热力图的发布地址为[青甘大环线热力图](https://data.lzu.edu.cn/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/HotPoint/MapServer)
+- 情感分析饼图；
+- 微博文本词云图。
 
-#### 交通图
-交通图的绘制是利用OpenStreetMap的数据，通过数据的`fclass`字段
-来绘制不同类型的交通线路。在本项目中，我们绘制了`truck`、`motorway`、`primary`、`secondary`、`tertiary`几个类型的交通线路
-在地图中，点击`交通图`按钮，即可开启交通图层。
+当前包含的景点数据包括青海湖、茶卡盐湖、嘉峪关关城、莫高窟-鸣沙山月牙泉、张掖七彩丹霞、卓尔山、马蹄寺景区、大柴旦、乌素特水上雅丹地质公园等。
 
+## 开发约定
+
+- 不要提交 `src/keys.json`、`dist/`、`node_modules/` 等本地配置或构建产物。
+- 若修改地图服务地址、第三方 API 字段或图层 ID，请同步更新 README 与相关配置说明。
+- 新增景点详情时，建议同时补充 `landmarks_details`、`landmark_emotion` 与 `landmark_wb` 中对应数据。
+- 提交前建议至少运行一次 `npm run build`，确认依赖与构建流程正常。
+
+## 常见问题
+
+### 地图空白或底图加载失败
+
+请检查 `src/keys.json` 中的天地图 Key、网络访问权限，以及外部地图服务地址是否可用。
+
+### 搜索、周边或路线规划没有结果
+
+请确认高德地图 Key 已开通对应 Web 服务能力，并检查输入的行政区、地点名称或经纬度格式是否正确。
+
+### 天气信息获取失败
+
+请确认和风天气 Key 有实时天气与城市查询接口权限，并检查当前地图中心点是否在可识别的地理范围内。
+
+### 浏览器定位不准确
+
+定位功能依赖 HTML5 Geolocation API，可能受浏览器权限、代理、多层 NAT 或系统定位设置影响。可使用手动选点功能作为替代。
+
+## 贡献指南
+
+欢迎通过 Issue 或 Pull Request 改进项目。建议流程：
+
+1. Fork 本仓库并创建功能分支；
+2. 完成功能开发或文档修订；
+3. 本地运行 `npm run build` 进行验证；
+4. 提交 Pull Request，并说明变更内容、验证方式与可能影响。
+
+如果是修复 Bug，请尽量附上复现步骤、浏览器版本、控制台报错或相关截图。
+
+## 许可证
+
+本项目基于 [Apache License 2.0](./LICENSE) 开源。
+
+## 致谢
+
+本项目使用或接入了以下开源库与服务能力：
+
+- [Vue](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [Element Plus](https://element-plus.org/)
+- [Apache ECharts](https://echarts.apache.org/)
+- [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/)
+- [天地图](http://lbs.tianditu.gov.cn/)
+- [高德开放平台](https://lbs.amap.com/)
+- [和风天气开发服务](https://dev.qweather.com/)
+- [OpenStreetMap](https://www.openstreetmap.org/)
