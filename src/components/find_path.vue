@@ -17,14 +17,14 @@
           </el-button>
         </el-form-item>
       </el-form>
-      <el-form-item class="button-row">
-        <el-button type="primary" @click="getFiveDayRoute" class="half-width-button">
-          五日路线
-        </el-button>
-        <el-button type="primary" @click="getSevenDayRoute" class="half-width-button">
-          七日路线
-        </el-button>
-      </el-form-item>
+<!--      <el-form-item class="button-row">-->
+<!--        <el-button type="primary" @click="getFiveDayRoute" class="half-width-button">-->
+<!--          五日路线-->
+<!--        </el-button>-->
+<!--        <el-button type="primary" @click="getSevenDayRoute" class="half-width-button">-->
+<!--          七日路线-->
+<!--        </el-button>-->
+<!--      </el-form-item>-->
       <el-alert
           v-if="showAlert"
           title="请输入完整的起点和终点"
@@ -90,7 +90,8 @@ export default {
 
         let avoidpolygons = '';
         try {
-          const response = await fetch('http://139.155.138.81:8000/process_coordinates', {
+          const response = await
+              fetch('https://qg.zenithangle.top/process_coordinates', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

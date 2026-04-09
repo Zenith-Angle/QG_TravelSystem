@@ -18,11 +18,11 @@
 
 
 <script>
-import {setMapCenter} from './components/mapConfig';
 import {drawPoint} from './components/temp_layer.ts';
 import axios from 'axios';
 import searchIcon from '@/assets/images/搜索.svg';
 import keys from '@/keys';
+import {useMapStore} from '@/stores/map';
 
 const amapKey = keys.AMAP_KEY;  // 使用高德地图的 API Key
 
@@ -46,6 +46,7 @@ export default {
       }
     },
     searchMap(keyword) {
+      const mapStore = useMapStore();
       console.log('Search Map called with:', keyword);
       const latLngPattern = /^\s*([-+]?\d{1,2}(\.\d+)?),\s*([-+]?\d{1,3}(\.\d+)?)\s*$/;
       const match = keyword.match(latLngPattern);
@@ -54,7 +55,7 @@ export default {
         const lat = parseFloat(match[1]);// 纬度
         const lng = parseFloat(match[3]);// 经度
         console.log('Setting map center to:', lat, lng);
-        setMapCenter(lng, lat, 11);
+        mapStore.moveTo(lng, lat, 11);
         drawPoint('administrative', [[lng, lat]], {
           name: '自定义位置',
           address: `经度: ${lng}, 纬度: ${lat}`,
@@ -69,7 +70,7 @@ export default {
                 const {center, name, level} = response.data.districts[0];
                 const [lng, lat] = center.split(',').map(Number);
                 console.log('Moving map center to:', name, lng, lat);
-                setMapCenter(lng, lat, 11);
+                mapStore.moveTo(lng, lat, 11);
                 drawPoint('administrative', [[lng, lat]], {name, address: center, level});
               } else {
                 console.error('No results found or API Error');

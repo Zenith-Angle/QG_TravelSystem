@@ -77,7 +77,8 @@
 </template>
 
 <script setup lang="ts">
-import {provide, ref, onMounted, watchEffect, Ref} from 'vue';
+import {provide, ref, onMounted} from 'vue';
+import {storeToRefs} from 'pinia';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import TileLayer from '@arcgis/core/layers/TileLayer';
@@ -91,6 +92,7 @@ import WMSLayer from '@arcgis/core/layers/WMSLayer';
 import {ElDropdown, ElDropdownMenu, ElDropdownItem} from 'element-plus';
 import {baseMapView, tempLayer} from './components/mapConfig';
 import LayerList from '@arcgis/core/widgets/LayerList';
+import {useMapStore} from './stores/map';
 
 
 
@@ -103,7 +105,8 @@ let sketchVisible = ref(false);
 const graphicsLayer = new GraphicsLayer();
 let sketch; // 将 sketch 声明在这里
 let dialogVisible = ref(false);  // 使用 ref 使 dialogVisible 成为响应式变量
-let selectedLayer = ref('');  // 创建一个响应式引用来存储当前选中的图层
+const mapStore = useMapStore();
+const {selectedLayer} = storeToRefs(mapStore);
 
 // 封装清空临时图层的函数
 function clearTempLayer() {
@@ -151,13 +154,9 @@ onMounted(() => {
 });
 
 function switchLayer(layer) {
-  selectedLayer.value = layer;
+  mapStore.switchLayer(layer);
   console.log('当前选中的图层是：', selectedLayer.value);
 }
-
-// 使用 provide 函数来提供 selectedLayer
-provide('selectedLayer', selectedLayer);
-
 
 </script>
 

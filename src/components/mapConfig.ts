@@ -6,7 +6,7 @@ import SpatialReference from '@arcgis/core/geometry/SpatialReference';
 import WMSLayer from '@arcgis/core/layers/WMSLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
-import {ref, inject, Ref, onMounted, watchEffect} from 'vue';
+import {ref, Ref, onMounted, watchEffect} from 'vue';
 import {getUserLocation} from './location';
 import {Point} from '@arcgis/core/geometry';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
@@ -18,10 +18,8 @@ import {SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol} from '@arcgis/co
 import * as os from "node:os";
 import {watch} from "vue";
 import keys from "../keys.json";
+import {useMapStore} from '../stores/map';
 
-
-// 在 mapConfig.ts 中访问 selectedLayer
-const selectedLayer = inject<string>('selectedLayer');
 
 export const mapCenter = ref([104.154319, 35.943354]); // 默认中心位置，兰州
 // export const mapCenter = ref([104.698, 31.540]); // 默认中心位置，绵阳
@@ -71,16 +69,23 @@ const osmLayer = new WebTileLayer({
     id: 'osmLayer'
 });
 
+// // 新增 热点图 图层
+// const HotPoint = new MapImageLayer({
+//     url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/HotPoint/MapServer',
+//     sublayers: [{
+//         id: 0 // 使用id来指定子图层
+//     }],
+//     id: 'HotPoint'
+// });
+
 // 新增 热点图 图层
 const HotPoint = new MapImageLayer({
-    url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/HotPoint/MapServer',
+    url: 'https://pc.geosceneenterprise40.cn/server/rest/services/QingGan/HotPoint/MapServer',
     sublayers: [{
         id: 0 // 使用id来指定子图层
     }],
     id: 'HotPoint'
 });
-
-
 
 // 新增 景点图 图层
 const landmarks: FeatureLayer = new FeatureLayer({
@@ -90,20 +95,29 @@ const landmarks: FeatureLayer = new FeatureLayer({
 
 
 
+// //新增 道路 图层
+// const road = new FeatureLayer({
+//     url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/roads/MapServer',
+//     id: 'Roads'
+// });
 //新增 道路 图层
 const road = new FeatureLayer({
-    url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/roads/MapServer',
+    url: 'https://pc.geosceneenterprise40.cn/server/rest/services/QingGan/roads/MapServer',
     id: 'Roads'
 });
 
 
 
-
 let view: MapView | null = null;
+let mapStore: ReturnType<typeof useMapStore> | null = null;
 
 export const tempLayer = new GraphicsLayer();
 
 export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
+    mapStore = useMapStore();
+    if (mapStore && mapStore.mapCenter.length === 2) {
+        mapCenter.value = [mapStore.mapCenter[0], mapStore.mapCenter[1]];
+    }
     const map = new Map();
 
 
@@ -152,6 +166,16 @@ export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
         }
     });
 
+    watchEffect(() => {
+        if (!mapStore) {
+            return;
+        }
+        const [lng, lat] = mapStore.mapCenter;
+        if (mapCenter.value[0] !== lng || mapCenter.value[1] !== lat) {
+            mapCenter.value = [lng, lat];
+        }
+    });
+
 
 
 // 监听mapCenter的变化，当它变化时，更新地图的中心位置
@@ -167,6 +191,9 @@ export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
         if (event.action === 'end') {
             const center = view.center;
             mapCenter.value = [center.longitude, center.latitude];
+            if (mapStore) {
+                mapStore.moveTo(center.longitude, center.latitude, view.zoom);
+            }
         }
     });
 
@@ -181,6 +208,9 @@ export function setMapCenter(longitude: number, latitude: number, zoom: number =
     if (view) {
         // 更新 mapCenter 的值
         mapCenter.value = [longitude, latitude];
+        if (mapStore) {
+            mapStore.moveTo(longitude, latitude, zoom);
+        }
 
         // 使用 goto 方法更新地图中心和缩放级别
         view.goTo({
