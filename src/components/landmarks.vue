@@ -8,7 +8,7 @@
         :modal="false"
         @close="resetDialog"
     >
-      <template #title>
+      <template #header>
         <div class="custom-title">{{ selectedLandmark.name || 'Landmark Information' }}
 
         </div>
@@ -42,8 +42,8 @@
 </template>
 
 <script setup>
-import {ref, onMounted, onUnmounted, defineAsyncComponent} from 'vue';
-import {view, setMapCenter} from './mapConfig';
+import {ref, shallowRef, onMounted, onUnmounted, defineAsyncComponent} from 'vue';
+import {view, setMapCenter, landmarks} from './mapConfig';
 import PieChart from './pie_chart.vue';
 import WordcloudChart from './wordcloud_chart.vue';
 
@@ -51,7 +51,7 @@ const selectedLandmark = ref({name: ''});
 const dialogVisible = ref(false); // 初始化为 false
 const drawerDirection = ref('rtl'); // 右侧滑出
 const drawerSize = ref('500px'); // 设定抽屉宽度
-let asyncComponent = ref(null);
+const asyncComponent = shallowRef(null);
 let clickHandler = null; // 初始化事件处理器
 
 // 定义显示图表的状态
@@ -59,8 +59,6 @@ const showPieChart = ref(false);
 const showWordcloudChart = ref(false);
 
 function openLandmarkDialog(landmark) {
-  console.log('Opening drawer with landmark:', landmark); // 调试日志
-  console.log('Drawer visible before:', dialogVisible.value); // 输出抽屉可见性状态
   selectedLandmark.value = landmark;
   dialogVisible.value = true;
 
@@ -76,7 +74,6 @@ function openLandmarkDialog(landmark) {
       })
   );
 
-  console.log('Drawer visible after:', dialogVisible.value); // 输出抽屉可见性状态
 }
 
 function resetDialog() {
@@ -89,20 +86,17 @@ function resetDialog() {
 
 function handleMapClick(event) {
   if (view) {
-    view.hitTest(event).then(response => {
-      const landmarkResults = response.results.filter(result =>
-          result.graphic.layer.id === 'Landmarks' && result.graphic.attributes
-      );
-
-      console.log('Hit test results:', landmarkResults); // 调试日志
+    view.hitTest(event, {include: landmarks}).then(response => {
+      const landmarkResults = response.results.filter(result => result.graphic?.attributes);
 
       if (landmarkResults.length > 0) {
         const graphic = landmarkResults[0].graphic;
-        console.log('Selected graphic attributes:', graphic.attributes); // 调试日志
+        const landmarkName = graphic.attributes.Name ?? graphic.attributes.name;
+        if (!landmarkName) return;
 
         // 打开抽屉并显示地标信息
         openLandmarkDialog({
-          name: graphic.attributes.name,
+          name: landmarkName,
         });
 
         // 移动地图中心到点击要素的位置
@@ -129,7 +123,6 @@ function toggleWordcloudChart() {
 
 onMounted(() => {
   if (view) {
-    console.log("MapView is initialized and ready for interaction.");
     clickHandler = view.on("click", handleMapClick);
   } else {
     console.error("MapView is not initialized.");

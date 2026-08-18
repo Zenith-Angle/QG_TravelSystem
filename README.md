@@ -5,10 +5,10 @@
 </p>
 
 <p align="center">
-  <img alt="Vue" src="https://img.shields.io/badge/Vue-3.4-42b883?logo=vuedotjs&logoColor=white">
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-5.1-646cff?logo=vite&logoColor=white">
-  <img alt="ArcGIS" src="https://img.shields.io/badge/ArcGIS%20Maps%20SDK-4.29-2c7ac3">
-  <img alt="Element Plus" src="https://img.shields.io/badge/Element%20Plus-2.6-409eff">
+  <img alt="Vue" src="https://img.shields.io/badge/Vue-3.5-42b883?logo=vuedotjs&logoColor=white">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8.2-646cff?logo=vite&logoColor=white">
+  <img alt="ArcGIS" src="https://img.shields.io/badge/ArcGIS%20Maps%20SDK-4.34-2c7ac3">
+  <img alt="Element Plus" src="https://img.shields.io/badge/Element%20Plus-2.14-409eff">
   <img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-blue">
 </p>
 
@@ -69,7 +69,7 @@
 | UI 组件 | Element Plus、@element-plus/icons-vue |
 | 状态管理 | Pinia |
 | 数据请求 | Axios、Fetch API |
-| 可视化 | ECharts、echarts-wordcloud |
+| 可视化 | ECharts、wordcloud |
 | 外部服务 | 高德地图 Web 服务 API、和风天气 API、ArcGIS Server / GeoScene 服务 |
 
 ## 系统架构
@@ -91,7 +91,7 @@ flowchart LR
 
 ### 环境要求
 
-- Node.js 18+（推荐使用与 Vite 5 兼容的 LTS 版本）
+- Node.js `^20.19.0` 或 `>=22.12.0`
 - npm 9+（项目已包含 `package-lock.json`，推荐使用 npm 安装依赖）
 - 可访问天地图、高德地图、和风天气及项目中配置的 ArcGIS / GeoScene 服务
 
@@ -110,27 +110,31 @@ npm install
 
 ### 3. 配置 API Key
 
-在 `src` 目录下创建本地配置文件 `keys.json`：
+复制环境变量示例并填写允许公开到浏览器的客户端配置：
 
-```json
-{
-  "tiandituKey": "your-tianditu-key",
-  "AMAP_KEY": "your-amap-web-service-key",
-  "AMAP_API_KEY": "your-amap-js-api-key-or-compatible-key",
-  "apiKey": "your-qweather-key"
-}
+```bash
+cp .env.example .env.local
+```
+
+`.env.local` 包含以下字段：
+
+```dotenv
+VITE_TIANDITU_KEY=your-public-tianditu-client-key
+VITE_AMAP_WEB_SERVICE_KEY=your-public-amap-web-service-key
+VITE_QWEATHER_API_KEY=your-public-qweather-api-key
+VITE_QWEATHER_API_HOST=https://your-account-api-host.qweatherapi.com
 ```
 
 字段说明：
 
 | 字段 | 用途 |
 | --- | --- |
-| `tiandituKey` | 天地图 WMTS 底图服务 Key |
-| `AMAP_KEY` | 高德地图 Web 服务 Key，用于行政区查询、地理编码、周边搜索与驾车路径规划 |
-| `AMAP_API_KEY` | 高德地图 JS API / 兼容字段，保留以匹配现有项目配置 |
-| `apiKey` | 和风天气 API Key，用于城市查询与实时天气查询 |
+| `VITE_TIANDITU_KEY` | 天地图 WMTS 底图服务 Key |
+| `VITE_AMAP_WEB_SERVICE_KEY` | 高德地图 Web 服务 Key，用于行政区查询、地理编码、周边搜索与驾车路径规划 |
+| `VITE_QWEATHER_API_KEY` | 和风天气 API Key，用于城市查询与实时天气查询 |
+| `VITE_QWEATHER_API_HOST` | 和风天气控制台分配的专属 API Host，必须使用 `https://*.qweatherapi.com` |
 
-> `keys.json` 包含敏感信息，应只保存在本地环境中，不要提交到公开仓库。项目的 `.gitignore` 已忽略该文件名。
+> 本项目是纯浏览器应用，所有 `VITE_` 值都会进入生产 JavaScript，不能视为秘密。高德 Web 服务 Key 也可被复制，浏览器域名白名单不能替代后端保护；请设置供应商实际支持的 API 范围、配额和账单上限。需要保密或不可承受滥用的调用必须放到后端代理。`.env.local` 已被 Git 忽略，更多说明见 [SECURITY.md](./SECURITY.md)。API Host 中不应包含 URL 用户名、密码或其他秘密。
 
 ### 4. 启动开发服务
 
@@ -158,6 +162,8 @@ npm run preview
 | `npm run dev` | 启动 Vite 开发服务器 |
 | `npm run build` | 构建生产环境静态资源 |
 | `npm run preview` | 本地预览生产构建结果 |
+| `npm run typecheck` | 运行 Vue / TypeScript 静态检查 |
+| `npm test` | 运行安全与输入校验测试 |
 
 ## 目录结构
 
@@ -231,24 +237,24 @@ QG_TravelSystem/
 
 ## 开发约定
 
-- 不要提交 `src/keys.json`、`dist/`、`node_modules/` 等本地配置或构建产物。
+- 不要提交 `.env.local`、`dist/`、`node_modules/` 等本地配置或构建产物。
 - 若修改地图服务地址、第三方 API 字段或图层 ID，请同步更新 README 与相关配置说明。
 - 新增景点详情时，建议同时补充 `landmarks_details`、`landmark_emotion` 与 `landmark_wb` 中对应数据。
-- 提交前建议至少运行一次 `npm run build`，确认依赖与构建流程正常。
+- 提交前运行 `npm test`、`npm run typecheck` 和 `npm run build`。
 
 ## 常见问题
 
 ### 地图空白或底图加载失败
 
-请检查 `src/keys.json` 中的天地图 Key、网络访问权限，以及外部地图服务地址是否可用。
+请检查 `.env.local` 中的 `VITE_TIANDITU_KEY`、网络访问权限，以及外部地图服务地址是否可用。
 
 ### 搜索、周边或路线规划没有结果
 
-请确认高德地图 Key 已开通对应 Web 服务能力，并检查输入的行政区、地点名称或经纬度格式是否正确。
+请确认 `.env.local` 中的高德地图 Key 已开通对应 Web 服务能力，并检查输入的行政区、地点名称或经纬度格式是否正确。
 
 ### 天气信息获取失败
 
-请确认和风天气 Key 有实时天气与城市查询接口权限，并检查当前地图中心点是否在可识别的地理范围内。
+请确认 `.env.local` 中的和风天气 Key、专属 API Host 与接口权限均正确，并检查当前地图中心点是否在可识别的地理范围内。
 
 ### 浏览器定位不准确
 

@@ -18,6 +18,19 @@ tourism planning application for the Qinghai-Gansu Grand Ring Road area.
 The project tech stack
 includes: `ArcGIS Map SDK for JavaScript` + `VUE` + `TypeScript` + `Element Plus` + `Axios` + `Echarts`.
 
+## Local setup
+
+Use Node.js `^20.19.0` or `>=22.12.0`, then install and verify the project:
+
+```bash
+npm install
+npm test
+npm run typecheck
+npm run build
+```
+
+Copy `.env.example` to `.env.local`, provide public client keys for TianDiTu, Amap, and QWeather, and set `VITE_QWEATHER_API_HOST` to the dedicated HTTPS API Host shown in the QWeather console. This is a browser-only application, so every `VITE_` value used by the app is included in the production JavaScript and must not be treated as a secret. Amap Web Service keys can be copied from the bundle and browser-domain allowlists are not a server-side security boundary. Apply the restrictions each provider actually supports, plus strict quotas and billing limits. Put calls that require private credentials behind a server API. See [SECURITY.md](../SECURITY.md).
+
 The Qinghai-Gansu Grand Ring Road, with its unique natural scenery, rich cultural
 heritage, and diverse geographical environments, has become a popular choice for
 self-driving travel enthusiasts. However, due to its special geographical location and

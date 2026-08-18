@@ -1,35 +1,35 @@
 <!-- menu.vue -->
 <template>
   <el-button-group>
-    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+    <el-popover placement="bottom" :width="200" trigger="hover" :hide-after="50">
       <template #reference>
         <el-button @click="toggleMenu('surrounding')">周边</el-button>
       </template>
       <p>以当前地图中心为搜索点，进行周边搜索</p>
     </el-popover>
 
-    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+    <el-popover placement="bottom" :width="200" trigger="hover" :hide-after="50">
       <template #reference>
         <el-button @click="openFindPath">路线</el-button>
       </template>
       <p>输入起点、终点，获取路线</p>
     </el-popover>
 
-    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+    <el-popover placement="bottom" :width="200" trigger="hover" :hide-after="50">
       <template #reference>
         <el-button @click="toggleMenu('location')">位置</el-button>
       </template>
       <p>获取当前位置，或手动指定位置</p>
     </el-popover>
 
-    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+    <el-popover placement="bottom" :width="200" trigger="hover" :hide-after="50">
       <template #reference>
         <el-button @click="emitToggleWeather">天气</el-button>
       </template>
       <p>以当前地图中心为搜索点，获取天气信息</p>
     </el-popover>
 
-    <el-popover placement="bottom" width="200" trigger="hover" hide-after="50">
+    <el-popover placement="bottom" :width="200" trigger="hover" :hide-after="50">
       <template #reference>
         <el-button @click="openInfo">关于</el-button>
       </template>
@@ -56,13 +56,13 @@
 
 <script>
 import {getUserLocation} from './components/location';
-import {selectManualLocation, setMapCenter} from './components/mapConfig.ts'; // 确保路径正确
+import {selectManualLocation, setMapCenter} from './components/mapConfig';
 import Surrounding from './components/surrounding.vue';
 import FindPath from './components/find_path.vue'; // 确保导入了find_path组件
-import Weather from './components/weather.vue'; // 确保导入了weather组件
 import Info from './components/info.vue'; // 确保导入了info组件
 
 export default {
+  emits: ['toggle-weather'],
   components: {
     Surrounding,
     FindPath,

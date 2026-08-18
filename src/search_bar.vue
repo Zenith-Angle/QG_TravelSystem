@@ -7,7 +7,7 @@
         class="search-input"
         placeholder="请输入行政区名称或经纬度"
         @blur="searchActive = false"
-        @keyup.enter.native="searchMap(searchQuery)"
+        @keyup.enter="searchMap(searchQuery)"
     />
     <el-button @click="toggleSearch">
       <!-- 使用 SVG 图像作为按钮图标 -->
@@ -19,14 +19,14 @@
 
 <script>
 import {setMapCenter} from './components/mapConfig';
-import {drawPoint} from './components/temp_layer.ts';
+import {clearTempGraphics, drawPoint} from './components/temp_layer';
 import axios from 'axios';
 import searchIcon from '@/assets/images/搜索.svg';
-import keys from '@/keys';
+import {amapWebServiceKey} from '@/config';
+import {isValidCoordinate} from '@/utils/security.js';
 
-const amapKey = keys.AMAP_KEY;  // 使用高德地图的 API Key
+const amapKey = amapWebServiceKey;
 
-axios.defaults.baseURL = '/api'
 export default {
   data() {
     return {
@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     toggleSearch() {
-      console.log('Toggle Search triggered');
       this.searchActive = !this.searchActive;
       if (this.searchActive) {
         this.$nextTick(() => {
@@ -46,14 +45,22 @@ export default {
       }
     },
     searchMap(keyword) {
-      console.log('Search Map called with:', keyword);
+      keyword = keyword.trim();
+      if (!keyword) {
+        this.$message.warning('请输入行政区名称或经纬度');
+        return;
+      }
       const latLngPattern = /^\s*([-+]?\d{1,2}(\.\d+)?),\s*([-+]?\d{1,3}(\.\d+)?)\s*$/;
       const match = keyword.match(latLngPattern);
 
       if (match) {
         const lat = parseFloat(match[1]);// 纬度
         const lng = parseFloat(match[3]);// 经度
-        console.log('Setting map center to:', lat, lng);
+        if (!isValidCoordinate(lat, lng)) {
+          this.$message.error('纬度应在 -90 到 90，经度应在 -180 到 180');
+          return;
+        }
+        clearTempGraphics();
         setMapCenter(lng, lat, 11);
         drawPoint('administrative', [[lng, lat]], {
           name: '自定义位置',
@@ -62,21 +69,22 @@ export default {
         });
       } else {
         const url = `https://restapi.amap.com/v3/config/district?keywords=${encodeURIComponent(keyword)}&key=${amapKey}&subdistrict=0&extensions=base`;
-        axios.get(url)
+        axios.get(url, {timeout: 10000})
             .then(response => {
-              console.log('API Response:', response.data);
-              if (response.data.status === '1' && response.data.districts.length > 0) {
+              if (response.data?.status === '1' && Array.isArray(response.data.districts) && response.data.districts.length > 0) {
                 const {center, name, level} = response.data.districts[0];
                 const [lng, lat] = center.split(',').map(Number);
-                console.log('Moving map center to:', name, lng, lat);
+                if (!isValidCoordinate(lat, lng)) throw new Error('行政区接口返回了无效坐标');
+                clearTempGraphics();
                 setMapCenter(lng, lat, 11);
                 drawPoint('administrative', [[lng, lat]], {name, address: center, level});
               } else {
-                console.error('No results found or API Error');
+                this.$message.warning('未找到匹配的行政区');
               }
             })
             .catch(error => {
               console.error('API Error:', error);
+              this.$message.error('搜索失败，请稍后重试');
             });
       }
     }

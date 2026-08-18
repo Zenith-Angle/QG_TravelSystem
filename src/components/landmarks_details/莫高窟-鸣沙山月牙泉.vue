@@ -8,7 +8,7 @@
   <div class="moduleContent">
    <div class="LimitHeightText" style="height:auto">
     <div>
-      <<p style="text-align: center;">
+      <p style="text-align: center;">
         <img
             src="https://s3.bmp.ovh/imgs/2024/07/25/a64fda9e6e4396da.jpg"
             style="width: 60%;"/>

@@ -2,32 +2,33 @@
   <div v-if="visible" id="info"
        style="position:absolute; z-index: 100;">
     <el-card id="box-card">
-      <div slot="header" class="clearfix" style="width: 100%;">
+      <template #header>
+      <div class="clearfix" style="width: 100%;">
         <span class="header-title">青甘大环线智能旅游服务系统</span>
       </div>
+      </template>
       <div>
         <p>这是一个基于ArcGIS Map SDK for
           JavaScript的WebGIS项目。目的是建立一个以青甘大环线为主要区域的旅游规划应用</p>
         <div class="author-info">
 
-          <a href="https://github.com/Zenith-Angle/QG_TravelSystem" target="_blank">
+          <a href="https://github.com/Zenith-Angle/QG_TravelSystem" target="_blank" rel="noopener noreferrer">
             <img src="@/assets/images/github.svg" alt="GitHub"
                  style="width: 50px; height: 50px;">
           </a>
         </div>
       </div>
       <!-- Close Button -->
-      <div slot="footer" class="dialog-footer">
+      <template #footer>
+      <div class="dialog-footer">
         <el-button @click="closeCard">关闭</el-button>
       </div>
+      </template>
     </el-card>
   </div>
 </template>
 
 <script>
-import {ref} from 'vue';
-
-
 export default {
   props: {
     visible: Boolean

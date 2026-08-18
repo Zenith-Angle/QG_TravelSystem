@@ -77,66 +77,55 @@
 </template>
 
 <script setup lang="ts">
-import {provide, ref, onMounted} from 'vue';
+import {ref, onMounted, onUnmounted} from 'vue';
 import {storeToRefs} from 'pinia';
-import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import TileLayer from '@arcgis/core/layers/TileLayer';
-import TileInfo from '@arcgis/core/layers/support/TileInfo';
-import WebTileLayer from '@arcgis/core/layers/WebTileLayer';
 import Compass from '@arcgis/core/widgets/Compass';
 import ScaleBar from '@arcgis/core/widgets/ScaleBar';
-import Sketch from '@arcgis/core/widgets/Sketch';
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
-import WMSLayer from '@arcgis/core/layers/WMSLayer';
-import {ElDropdown, ElDropdownMenu, ElDropdownItem} from 'element-plus';
-import {baseMapView, tempLayer} from './components/mapConfig';
-import LayerList from '@arcgis/core/widgets/LayerList';
+import {baseMapView, destroyMapView} from './components/mapConfig';
+import {clearTempGraphics} from './components/temp_layer';
 import {useMapStore} from './stores/map';
 
 
 
-const tiandituKey = "2550d947faf678cd19951d530bf273d8";
-
-let longitude = ref('');
-let latitude = ref('');
-let view: MapView;
-let sketchVisible = ref(false);
-const graphicsLayer = new GraphicsLayer();
-let sketch; // 将 sketch 声明在这里
-let dialogVisible = ref(false);  // 使用 ref 使 dialogVisible 成为响应式变量
+const longitude = ref('');
+const latitude = ref('');
+let view: MapView | null = null;
+let pointerMoveHandle: __esri.Handle | null = null;
+const dialogVisible = ref(false);
 const mapStore = useMapStore();
 const {selectedLayer} = storeToRefs(mapStore);
 
 // 封装清空临时图层的函数
 function clearTempLayer() {
-  tempLayer.removeAll();
+  clearTempGraphics();
 }
 
 // 封装鼠标移动监视器
-function setupPointerMoveListener(view) {
-  view.on('pointer-move', event => {
-    const point = view.toMap(event);
+function setupPointerMoveListener(mapView: MapView) {
+  pointerMoveHandle = mapView.on('pointer-move', (event: __esri.ViewPointerMoveEvent) => {
+    const point = mapView.toMap(event);
+    if (!point) return;
     longitude.value = point.longitude.toFixed(6);  // 显示经度，保留6位小数
     latitude.value = point.latitude.toFixed(6);    // 显示纬度，保留6位小数
   });
 }
 
 // 封装指北针功能
-function addCompass(view) {
-  const compass = new Compass({view: view});
-  view.ui.add(compass, "top-right"); // 将指北针控件添加到地图的右上角
+function addCompass(mapView: MapView) {
+  const compass = new Compass({view: mapView});
+  mapView.ui.add(compass, "top-right");
 }
 
 // 封装比例尺控件功能
-function addScaleBar(view) {
-  const scaleBar = new ScaleBar({view: view});
-  view.ui.add(scaleBar, "bottom-left"); // 创建比例尺控件并添加到左下角
+function addScaleBar(mapView: MapView) {
+  const scaleBar = new ScaleBar({view: mapView});
+  mapView.ui.add(scaleBar, "bottom-left");
 }
 
 // 封装缩放控件的位置调整
-function moveZoomControl(view) {
-  view.ui.move("zoom", "bottom-left"); // 内置的缩放控件调整位置到左下角
+function moveZoomControl(mapView: MapView) {
+  mapView.ui.move("zoom", "bottom-left");
 }
 
 
@@ -150,12 +139,17 @@ onMounted(() => {
   addScaleBar(view);
   moveZoomControl(view);
 
-  provide('mapView', view);  // 提供 mapView 实例
 });
 
-function switchLayer(layer) {
+onUnmounted(() => {
+  pointerMoveHandle?.remove();
+  clearTempGraphics();
+  destroyMapView();
+  view = null;
+});
+
+function switchLayer(layer: string) {
   mapStore.switchLayer(layer);
-  console.log('当前选中的图层是：', selectedLayer.value);
 }
 
 </script>

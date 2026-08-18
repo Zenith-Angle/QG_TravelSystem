@@ -1,19 +1,17 @@
 <template>
-  <div ref="wordcloudContainer"
-       style="width: 300px; height: 300px; top: 50%; left: 10%; position: absolute;"></div>
+  <canvas ref="wordcloudContainer" width="300" height="300"
+          style="width: 300px; height: 300px; top: 50%; left: 10%; position: absolute;"></canvas>
 </template>
 
 <script setup>
-import {ref, onMounted, watch} from 'vue';
-import * as echarts from 'echarts';
-import 'echarts-wordcloud';
+import {ref, onMounted, onBeforeUnmount, watch} from 'vue';
+import WordCloud from 'wordcloud';
 
 const props = defineProps({
   landmarkName: String
 });
 
 const wordcloudContainer = ref(null);
-let wordcloudChart = null;
 
 const loadWordcloudData = async (landmarkName) => {
   if (!landmarkName) return;
@@ -25,62 +23,52 @@ const loadWordcloudData = async (landmarkName) => {
       name: item.name,
       value: item.value
     }));
-    updateWordcloudChart(data);
+    renderWordcloud(data);
   } catch (error) {
     console.error("Failed to load wordcloud data:", error);
-    updateWordcloudChart([]); // 在错误情况下更新图表为空
+    renderWordcloud([]);
   }
 };
 
-const updateWordcloudChart = (data) => {
-  if (!wordcloudChart) {
-    wordcloudChart = echarts.init(wordcloudContainer.value);
-  }
-  wordcloudChart.setOption({
-    tooltip: {},
-    series: [{
-      type: 'wordCloud',
-      shape: 'circle',
-      left: 'center',
-      top: 'center',
-      width: '100%',
-      height: '100%',
-      right: null,
-      bottom: null,
-      sizeRange: [12, 60],
-      rotationRange: [-90, 90],
-      rotationStep: 45,
-      gridSize: 8,
-      drawOutOfBound: false,
-      textStyle: {
-        normal: {
-          fontFamily: 'miSans',
-          fontWeight: 'bold',
-          color: function () {
-            return 'rgb(' + [
-              Math.round(Math.random() * 160),
-              Math.round(Math.random() * 160),
-              Math.round(Math.random() * 160)
-            ].join(',') + ')';
-          }
-        }
-      },
-      data: data
-    }],
-    animationEasing: 'cubicInOut',
-    animationDuration: 1500
+const renderWordcloud = (data) => {
+  if (!wordcloudContainer.value) return;
+  WordCloud.stop();
+  const context = wordcloudContainer.value.getContext('2d');
+  context.clearRect(0, 0, 300, 300);
+  const ranked = data
+      .map(item => ({name: String(item.name), value: Number(item.value)}))
+      .filter(item => item.name && Number.isFinite(item.value) && item.value > 0)
+      .sort((left, right) => right.value - left.value)
+      .slice(0, 80);
+  const logarithms = ranked.map(item => Math.log1p(item.value));
+  const minimum = Math.min(...logarithms);
+  const maximum = Math.max(...logarithms);
+  const sizeFor = value => maximum === minimum
+      ? 24
+      : 12 + ((Math.log1p(value) - minimum) / (maximum - minimum)) * 36;
+  WordCloud(wordcloudContainer.value, {
+    list: ranked.map(item => [item.name, sizeFor(item.value)]),
+    gridSize: 8,
+    weightFactor: 1,
+    rotateRatio: 0.5,
+    rotationSteps: 4,
+    color: () => `rgb(${[0, 0, 0].map(() => Math.round(Math.random() * 160)).join(',')})`,
+    backgroundColor: 'transparent',
+    drawOutOfBound: false,
+    abortThreshold: 1000
   });
 };
 
 watch(() => props.landmarkName, (newVal) => {
   loadWordcloudData(newVal);
-}, {immediate: true});
+});
 
 onMounted(() => {
-  wordcloudChart = echarts.init(wordcloudContainer.value);
-  wordcloudChart.setOption({
-    series: [{type: 'wordCloud', data: []}]  // 初始化为空的词云图
-  });
+  loadWordcloudData(props.landmarkName);
+});
+
+onBeforeUnmount(() => {
+  WordCloud.stop();
 });
 </script>
 

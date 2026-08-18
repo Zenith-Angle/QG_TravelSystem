@@ -5,13 +5,11 @@
 <script>
 import axios from 'axios';
 import {mapCenter} from './mapConfig';
-import {reverseGeocodeCurrentLocation} from './GeoCode_and_ReverseGeocode.ts';
-import {drawPoint, drawRange} from './temp_layer.ts'; // 引入地图绘制函数
-import keys from '@/keys';
-const radius = 20000; // 查询半径
-const location = mapCenter.value.join(',');
-
-const AMAP_KEY = keys.AMAP_KEY;
+import {reverseGeocodeCurrentLocation} from './GeoCode_and_ReverseGeocode';
+import {clearTempGraphics, drawPoint, drawRange} from './temp_layer';
+import {amapWebServiceKey} from '@/config';
+import {parseLngLatString} from '@/utils/security.js';
+const radius = 5000;
 
 export default {
   data() {
@@ -28,29 +26,32 @@ export default {
     async fetchSurroundingInfo(category) {
       this.category = category;
       try {
-        // const location = mapCenter.value.join(',');
-        const geocodeInfo = await reverseGeocodeCurrentLocation(location);
+        const geocodeInfo = await reverseGeocodeCurrentLocation();
         if (geocodeInfo && geocodeInfo.status === '1') {
-          const adcode = geocodeInfo.regeocode.addressComponent.adcode;
           const location = mapCenter.value.join(',');
           const response = await axios.get(`https://restapi.amap.com/v3/place/around`, {
             params: {
               location: location,
               radius: radius,
-              key: AMAP_KEY,
+              key: amapWebServiceKey,
               keywords: category,
               offset: 20,
               page: 1,
               extensions: 'base',
               sortrule: 'weight'
-            }
+            },
+            timeout: 10000
           });
-          drawRange(location, radius); // 绘制查询范围
-          this.surroundingResults = response.data.pois; // 注意确保这是数据结构中正确的属性名
+          if (response.data?.status !== '1' || !Array.isArray(response.data.pois)) {
+            throw new Error(response.data?.info || '周边搜索返回格式无效');
+          }
+          clearTempGraphics();
+          drawRange(location, radius);
+          this.surroundingResults = response.data.pois;
           this.surroundingResults.forEach(result => {
-            const [longitude, latitude] = result.location.split(',').map(Number);
-            // 根据category设置specificType
-            let specificType;
+            const coordinates = parseLngLatString(result.location);
+            if (!coordinates) return;
+            const [longitude, latitude] = coordinates;
             if (category === '餐饮') {
               drawPoint("food", [[longitude, latitude]], {
                 name: result.name,
@@ -83,6 +84,8 @@ export default {
               console.error('未知的周边信息类别:', category);
             }
           });
+        } else {
+          throw new Error(geocodeInfo?.info || '无法识别当前地图中心');
         }
       } catch (error) {
         console.error('获取周边信息失败:', error);

@@ -6,32 +6,31 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   },
   "dependencies": {
-    "@arcgis/core": "^4.29.10",
-    "@element-plus/icons-vue": "^2.3.1",
-    "axios": "^1.6.8",
-    "braces": "~3.0.3",
-    "echarts": "^5.5.0",
-    "echarts-wordcloud": "^2.1.0",
-    "element-plus": "^2.6.0",
-    "got": "~11.8.5",
-    "http-cache-semantics": "~4.1.1",
+    "@arcgis/core": "^4.34.8",
+    "@element-plus/icons-vue": "^2.3.2",
+    "axios": "^1.19.0",
+    "echarts": "^6.1.0",
+    "element-plus": "^2.14.4",
     "pinia": "^2.3.1",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0",
-    "vuex": "^4.0.2",
-    "ws": "~7.5.10",
-    "yarn": "^1.22.22"
+    "vue": "^3.5.41",
+    "wordcloud": "^1.2.3"
   },
   "overrides": {
     "lodash": "4.18.1",
     "lodash-es": "4.18.1"
   },
   "devDependencies": {
-    "@types/collections": "^5.1.5",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.1.4"
+    "@vitejs/plugin-vue": "^6.0.8",
+    "typescript": "^5.9.3",
+    "vite": "^8.2.1",
+    "vue-tsc": "^3.3.10"
   }
 }

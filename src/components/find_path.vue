@@ -2,10 +2,12 @@
   <div id="find-path" v-show="visible"
        style="position: absolute; top: 10px; right: 400px; z-index: 100;">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
+      <template #header>
+        <div class="clearfix">
         <span>查找路线</span>
-      </div>
-      <el-form @submit.native.prevent="findPath">
+        </div>
+      </template>
+      <el-form @submit.prevent="findPath">
         <el-form-item label="起点">
           <el-input v-model="startLocation" placeholder="请输入起点"></el-input>
         </el-form-item>
@@ -38,17 +40,16 @@
 </template>
 
 <script>
-import {geocodeLocation} from './GeoCode_and_ReverseGeocode.ts';
-import {drawPolyline, drawPoint, drawGrid} from './temp_layer.ts';
+import {geocodeLocation} from './GeoCode_and_ReverseGeocode';
+import {clearTempGraphics, drawPolyline, drawPoint, drawGrid} from './temp_layer';
 import {
   calculateMidpoint,
   calculateDistance,
   getZoomLevelByDistance
-} from './map_calculate.ts';
-import {setMapCenter} from './mapConfig.ts';
-import keys from '@/keys';
-
-const AMAP_KEY = keys.AMAP_KEY;
+} from './map_calculate';
+import {setMapCenter} from './mapConfig';
+import {amapWebServiceKey} from '@/config';
+import {parseLngLatString, parsePolygonString, parsePolylineString} from '@/utils/security.js';
 
 export default {
   props: ['visible'], // 接收从父组件传递的可见性状态
@@ -59,65 +60,106 @@ export default {
       showAlert: false
     };
   },
+  created() {
+    this.activeRequests = new Set();
+  },
+  beforeUnmount() {
+    this.activeRequests.forEach(controller => controller.abort());
+    this.activeRequests.clear();
+  },
   watch: {
     visible(newVal) {
       this.$el.style.display = newVal ? 'block' : 'none'; // 根据visible的值显示或隐藏组件
     }
   },
   methods: {
+    async fetchWithTimeout(url, options = {}, timeout = 10000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeout);
+      this.activeRequests.add(controller);
+      try {
+        return await fetch(url, {...options, signal: controller.signal});
+      } finally {
+        clearTimeout(timer);
+        this.activeRequests.delete(controller);
+      }
+    },
     async findPath() {
-      if (!this.startLocation || !this.endLocation) {
+      const startLocation = this.startLocation.trim();
+      const endLocation = this.endLocation.trim();
+      if (!startLocation || !endLocation) {
         this.showAlert = true;
         return;
       }
-      const startGeocodeResult = await geocodeLocation(this.startLocation);
-      const endGeocodeResult = await geocodeLocation(this.endLocation);
+      let startGeocodeResult;
+      let endGeocodeResult;
+      try {
+        [startGeocodeResult, endGeocodeResult] = await Promise.all([
+          geocodeLocation(startLocation),
+          geocodeLocation(endLocation)
+        ]);
+      } catch (error) {
+        console.error('地理编码请求失败:', error);
+        this.$message.error('无法查询起点或终点，请稍后重试');
+        return;
+      }
 
-      if (startGeocodeResult.status === '1' && endGeocodeResult.status === '1') {
-        const startLngLat = startGeocodeResult.geocodes[0].location;
-        const endLngLat = endGeocodeResult.geocodes[0].location;
-
-        console.log('起点经纬度:', startLngLat);
-        console.log('终点经纬度:', endLngLat);
+      if (startGeocodeResult.status === '1' && endGeocodeResult.status === '1'
+          && startGeocodeResult.geocodes?.[0] && endGeocodeResult.geocodes?.[0]) {
+        const startCoordinates = parseLngLatString(startGeocodeResult.geocodes[0].location);
+        const endCoordinates = parseLngLatString(endGeocodeResult.geocodes[0].location);
+        if (!startCoordinates || !endCoordinates) {
+          this.$message.error('起点或终点坐标无效');
+          return;
+        }
+        const [startLng, startLat] = startCoordinates;
+        const [endLng, endLat] = endCoordinates;
+        const startLngLat = `${startLng},${startLat}`;
+        const endLngLat = `${endLng},${endLat}`;
 
         // 构建请求体以获取 avoidpolygons 数据
         const requestBody = {
-          lon1: startLngLat.split(',')[0],
-          lat1: startLngLat.split(',')[1],
-          lon2: endLngLat.split(',')[0],
-          lat2: endLngLat.split(',')[1]
+          lon1: startLng,
+          lat1: startLat,
+          lon2: endLng,
+          lat2: endLat
         };
 
         let avoidpolygons = '';
         try {
           const response = await
-              fetch('https://qg.zenithangle.top/process_coordinates', {
+              this.fetchWithTimeout('https://qg.zenithangle.top/process_coordinates', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(requestBody)
           });
+          if (!response.ok) throw new Error(`路况服务返回 ${response.status}`);
           const polygons = await response.text(); // 获取返回的多边形字符串
-          avoidpolygons = polygons.replace(/"/g, ''); // 去除所有引号
+          const candidate = polygons.trim().replace(/^"|"$/g, '');
+          if (parsePolygonString(candidate)) avoidpolygons = candidate;
         } catch (error) {
           console.error('处理多边形数据失败:', error);
         }
 
-        drawGrid(avoidpolygons);
-
         // 构造高德地图API的URL
-        let url = `https://restapi.amap.com/v3/direction/driving?origin=${startLngLat}&destination=${endLngLat}&extensions=all&output=json&key=${AMAP_KEY}`;
+        let url = `https://restapi.amap.com/v3/direction/driving?origin=${startLngLat}&destination=${endLngLat}&extensions=all&output=json&key=${amapWebServiceKey}`;
         if (avoidpolygons) {
-          url += `&avoidpolygons=${avoidpolygons}`;
+          url += `&avoidpolygons=${encodeURIComponent(avoidpolygons)}`;
         }
 
         try {
-          const routeResponse = await fetch(url);
+          const routeResponse = await this.fetchWithTimeout(url);
+          if (!routeResponse.ok) throw new Error(`路径服务返回 ${routeResponse.status}`);
           const routeData = await routeResponse.json();
 
-          if (routeData.route.paths[0]) {
-            const steps = routeData.route.paths[0].steps;
+          const path = routeData?.route?.paths?.[0];
+          if (path && Array.isArray(path.steps) && path.steps.length > 0
+              && path.steps.every(step => parsePolylineString(step?.polyline))) {
+            const steps = path.steps;
+            clearTempGraphics();
+            if (avoidpolygons) drawGrid(avoidpolygons);
             steps.forEach(step => {
               drawPolyline('road', step.polyline, {
                 instruction: step.instruction,
@@ -129,22 +171,22 @@ export default {
               });
             });
             // 绘制起点，传递起点名称
-            drawPoint('StartEnd', [[parseFloat(startLngLat.split(',')[0]), parseFloat(startLngLat.split(',')[1])]], {name: this.startLocation});
+            drawPoint('StartEnd', [startCoordinates], {name: startLocation});
             // 绘制终点，传递终点名称
-            drawPoint('StartEnd', [[parseFloat(endLngLat.split(',')[0]), parseFloat(endLngLat.split(',')[1])]], {name: this.endLocation});
+            drawPoint('StartEnd', [endCoordinates], {name: endLocation});
 
             // 计算中点和距离
             const {latitude, longitude} = calculateMidpoint(
-                parseFloat(startLngLat.split(',')[1]),
-                parseFloat(startLngLat.split(',')[0]),
-                parseFloat(endLngLat.split(',')[1]),
-                parseFloat(endLngLat.split(',')[0])
+                startLat,
+                startLng,
+                endLat,
+                endLng
             );
             const distance = calculateDistance(
-                parseFloat(startLngLat.split(',')[1]),
-                parseFloat(startLngLat.split(',')[0]),
-                parseFloat(endLngLat.split(',')[1]),
-                parseFloat(endLngLat.split(',')[0])
+                startLat,
+                startLng,
+                endLat,
+                endLng
             );
 
             // 获取对应距离的缩放级别
@@ -153,19 +195,23 @@ export default {
             // 调整地图中心和缩放级别
             setMapCenter(longitude, latitude, zoomLevel);
 
+          } else {
+            throw new Error(routeData?.info || '路径服务未返回可用路线');
           }
         } catch (error) {
           console.error('请求高德地图API失败:', error);
+          this.$message.error('路线规划失败，请稍后重试');
         }
       } else {
         console.error('地理编码失败:', startGeocodeResult.info, endGeocodeResult.info);
+        this.$message.warning('未找到有效的起点或终点');
       }
     },
     async getFiveDayRoute() {
-      const url = `https://restapi.amap.com/v3/direction/driving?key=${AMAP_KEY}&origin=101.777795,36.616621&destination=101.777795,36.616621&extensions=base&strategy=0&waypoints=101.094385,36.437716;100.589133,36.912518;99.081063,36.766919;97.361528,37.369865;95.359955,37.859676;94.809145,40.041189;98.223482,39.795477;100.063450,38.972996;101.114466,37.838519;101.373496,37.615750;101.611524,37.388567`;
+      const url = `https://restapi.amap.com/v3/direction/driving?key=${amapWebServiceKey}&origin=101.777795,36.616621&destination=101.777795,36.616621&extensions=base&strategy=0&waypoints=101.094385,36.437716;100.589133,36.912518;99.081063,36.766919;97.361528,37.369865;95.359955,37.859676;94.809145,40.041189;98.223482,39.795477;100.063450,38.972996;101.114466,37.838519;101.373496,37.615750;101.611524,37.388567`;
 
       try {
-        const response = await fetch(url);
+        const response = await this.fetchWithTimeout(url);
         const data = await response.json();
         if (data.route.paths[0]) {
           this.drawRoute(data.route.paths[0]);
@@ -178,10 +224,10 @@ export default {
     },
     async getSevenDayRoute() {
       const url =
-          `https://restapi.amap.com/v3/direction/driving?key=${AMAP_KEY}&origin=103.834228,36.060798&destination=94.809145,40.041189&extensions=base&strategy=0&waypoints=100.449858,38.924766;98.2882,39.77325;94.662328,40.142066;101.777795,36.616621;100.589133,36.912518;99.081063,36.766919;95.448807,37.845823`;
+          `https://restapi.amap.com/v3/direction/driving?key=${amapWebServiceKey}&origin=103.834228,36.060798&destination=94.809145,40.041189&extensions=base&strategy=0&waypoints=100.449858,38.924766;98.2882,39.77325;94.662328,40.142066;101.777795,36.616621;100.589133,36.912518;99.081063,36.766919;95.448807,37.845823`;
 
       try {
-        const response = await fetch(url);
+        const response = await this.fetchWithTimeout(url);
         const data = await response.json();
         if (data.route.paths[0]) {
           this.drawRoute(data.route.paths[0]);
@@ -192,6 +238,9 @@ export default {
       setMapCenter(98.375510, 38.425972, 7)
     },
     drawRoute(path) {
+      if (!Array.isArray(path?.steps) || path.steps.length === 0
+          || !path.steps.every(step => parsePolylineString(step?.polyline))) return false;
+      clearTempGraphics();
       path.steps.forEach(step => {
         drawPolyline('road', step.polyline, {
           instruction: step.instruction,
@@ -202,6 +251,7 @@ export default {
           assistantAction: step.assistant_action || ''
         });
       });
+      return true;
     }
   }
 };

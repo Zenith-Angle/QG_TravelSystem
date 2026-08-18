@@ -1,8 +1,6 @@
 import axios, {AxiosResponse} from 'axios';
 import {mapCenter} from './mapConfig';
-import keys from "../keys.json";
-
-const AMAP_API_KEY = keys.AMAP_KEY;
+import {amapWebServiceKey} from "../config";
 
 // 定义一个接口来描述高德地理逆编码 API 返回的 JSON 结构
 interface ReverseGeocodeResult {
@@ -39,22 +37,18 @@ interface ReverseGeocodeResult {
     };
 }
 
-// 创建一个全局变量来保存逆地理编码的结果
-let geocodeResult: ReverseGeocodeResult | null = null;
-
-export async function reverseGeocodeCurrentLocation() {
-    // const location = mapCenter.value.join(',');
+export async function reverseGeocodeCurrentLocation(): Promise<ReverseGeocodeResult> {
     const response: AxiosResponse<ReverseGeocodeResult> = await axios.get('https://restapi.amap.com/v3/geocode/regeo', {
         params: {
-            key: AMAP_API_KEY,
-            location: location,
+            key: amapWebServiceKey,
+            location: mapCenter.value.join(','),
             output: 'json', // 指定返回格式为 JSON
             radius: '1000', // 设定搜索半径为 1000 米
             extensions: 'base' // 请求基础信息
-        }
+        },
+        timeout: 10000
     });
-    geocodeResult = response.data; // 将结果保存到全局变量中
-    return geocodeResult;
+    return response.data;
 }
 
 // 定义一个接口来描述高德地理编码 API 返回的 JSON 结构
@@ -86,17 +80,14 @@ interface GeocodeResult {
     }>;
 }
 
-// 创建一个全局变量来保存地理编码的结果
-let geocodingResult: GeocodeResult | null = null;
-
-export async function geocodeLocation(address: string) {
+export async function geocodeLocation(address: string): Promise<GeocodeResult> {
     const response: AxiosResponse<GeocodeResult> = await axios.get('https://restapi.amap.com/v3/geocode/geo', {
         params: {
-            key: AMAP_API_KEY,
+            key: amapWebServiceKey,
             address: address,
             output: 'json' // 指定返回格式为 JSON
-        }
+        },
+        timeout: 10000
     });
-    geocodingResult = response.data; // 将结果保存到全局变量中
-    return geocodingResult;
+    return response.data;
 }

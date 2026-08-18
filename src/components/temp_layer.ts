@@ -1,12 +1,13 @@
 // 引入必要的模块
-import {Point, Polyline, Polygon,} from '@arcgis/core/geometry';
+import Point from '@arcgis/core/geometry/Point';
+import Polyline from '@arcgis/core/geometry/Polyline';
+import Polygon from '@arcgis/core/geometry/Polygon';
 import Circle from '@arcgis/core/geometry/Circle';
-import {
-    SimpleMarkerSymbol,
-    SimpleLineSymbol,
-    SimpleFillSymbol,
-    PictureMarkerSymbol
-} from '@arcgis/core/symbols';
+import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
+import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
+import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
+import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
+import * as reactiveUtils from '@arcgis/core/core/reactiveUtils';
 import Graphic from '@arcgis/core/Graphic';
 import {view, tempLayer} from './mapConfig'; // 从 mapConfig.ts 文件中导入 view 和 tempLayer
 import PopupTemplate from '@arcgis/core/PopupTemplate';
@@ -16,7 +17,15 @@ import hotelIcon from '@/assets/images/酒店.svg';
 import trafficIcon from '@/assets/images/公交.svg';
 import gasStationIcon from '@/assets/images/加油站.svg';
 import startEndIcon from '@/assets/images/起点终点.svg';
-import {ref} from 'vue';
+import {escapeHtml, parsePolygonString, parsePolylineString} from '@/utils/security.js';
+
+const graphicWatchHandles = new Set<__esri.WatchHandle>();
+
+export function clearTempGraphics() {
+    graphicWatchHandles.forEach(handle => handle.remove());
+    graphicWatchHandles.clear();
+    tempLayer.removeAll();
+}
 
 /**
  * 在地图上绘制点
@@ -71,9 +80,9 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                 });
                 popupTemplate = new PopupTemplate({
                     title: "行政区信息",
-                    content: `名称: ${info?.name ?? ''}<br>
-                              地址: ${info?.address ?? ''}<br>
-                              等级: ${info?.level ?? ''}<br>
+                    content: `名称: ${escapeHtml(info?.name)}<br>
+                              地址: ${escapeHtml(info?.address)}<br>
+                              等级: ${escapeHtml(info?.level)}<br>
                               经度: ${longitude}<br>
                               纬度: ${latitude}`
                 });
@@ -86,10 +95,10 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                 });
                 popupTemplate = new PopupTemplate({
                     title: "餐饮设施信息",
-                    content: `名称: ${info?.name ?? ''}<br>
-                              地址: ${info?.pname ?? ''} ${info?.cityname ?? ''} ${info?.adname ?? ''} ${info?.address ?? ''}<br>
-                              类型: ${info?.type ?? ''}<br>
-                              距离: ${info?.distance ?? ''} 米`
+                    content: `名称: ${escapeHtml(info?.name)}<br>
+                              地址: ${escapeHtml(info?.pname)} ${escapeHtml(info?.cityname)} ${escapeHtml(info?.adname)} ${escapeHtml(info?.address)}<br>
+                              类型: ${escapeHtml(info?.type)}<br>
+                              距离: ${escapeHtml(info?.distance)} 米`
                 });
                 break;
             case 'hotel':
@@ -100,10 +109,10 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                 });
                 popupTemplate = new PopupTemplate({
                     title: "酒店信息",
-                    content: `名称: ${info?.name ?? ''}<br>
-                              地址: ${info?.pname ?? ''} ${info?.cityname ?? ''} ${info?.adname ?? ''} ${info?.address ?? ''}<br>
-                              类型: ${info?.type ?? ''}<br>
-                              距离: ${info?.distance ?? ''} 米`
+                    content: `名称: ${escapeHtml(info?.name)}<br>
+                              地址: ${escapeHtml(info?.pname)} ${escapeHtml(info?.cityname)} ${escapeHtml(info?.adname)} ${escapeHtml(info?.address)}<br>
+                              类型: ${escapeHtml(info?.type)}<br>
+                              距离: ${escapeHtml(info?.distance)} 米`
                 });
                 break;
             case 'traffic':
@@ -114,10 +123,10 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                 });
                 popupTemplate = new PopupTemplate({
                     title: "交通设施信息",
-                    content: `名称: ${info?.name ?? ''}<br>
-                              地址: ${info?.pname ?? ''} ${info?.cityname ?? ''} ${info?.adname ?? ''} ${info?.address ?? ''}<br>
-                              类型: ${info?.type ?? ''}<br>
-                              距离: ${info?.distance ?? ''} 米`
+                    content: `名称: ${escapeHtml(info?.name)}<br>
+                              地址: ${escapeHtml(info?.pname)} ${escapeHtml(info?.cityname)} ${escapeHtml(info?.adname)} ${escapeHtml(info?.address)}<br>
+                              类型: ${escapeHtml(info?.type)}<br>
+                              距离: ${escapeHtml(info?.distance)} 米`
                 });
                 break;
             case 'GasStation':
@@ -128,10 +137,10 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                 });
                 popupTemplate = new PopupTemplate({
                     title: "加油站信息",
-                    content: `名称: ${info?.name ?? ''}<br>
-                              地址: ${info?.pname ?? ''} ${info?.cityname ?? ''} ${info?.adname ?? ''} ${info?.address ?? ''}<br>
-                              类型: ${info?.type ?? ''}<br>
-                              距离: ${info?.distance ?? ''} 米`
+                    content: `名称: ${escapeHtml(info?.name)}<br>
+                              地址: ${escapeHtml(info?.pname)} ${escapeHtml(info?.cityname)} ${escapeHtml(info?.adname)} ${escapeHtml(info?.address)}<br>
+                              类型: ${escapeHtml(info?.type)}<br>
+                              距离: ${escapeHtml(info?.distance)} 米`
                 });
                 break;
             case 'StartEnd':
@@ -141,7 +150,7 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                     height: size.height
                 });
                 popupTemplate = new PopupTemplate({
-                    title: info?.name || '未命名地点', // 如果没有提供名称，默认显示 '未命名地点'
+                    title: escapeHtml(info?.name || '未命名地点'),
                     content: `经度: ${coordinates[0][0]}<br>纬度: ${coordinates[0][1]}`
                 });
                 break;
@@ -160,7 +169,7 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
         tempLayer.add(pointGraphic);
 
         // 监听地图缩放事件
-        view.watch('scale', (newScale) => {
+        const watchHandle = reactiveUtils.watch(() => view.scale, (newScale) => {
             const newSize = getIconSize(newScale);
             pointGraphic.symbol = new PictureMarkerSymbol({
                 url: symbol.url,
@@ -168,6 +177,7 @@ export function drawPoint(pointType: 'administrative' | 'food' | 'hotel' | 'traf
                 height: newSize.height
             });
         });
+        graphicWatchHandles.add(watchHandle);
     } else {
         console.error('Invalid coordinates for point.');
     }
@@ -186,18 +196,16 @@ export function drawPolyline(polylineType: string, coordinatesStr: string, info:
     distance: string,
     action: string,
     assistantAction?: string
-}): void {
+}): boolean {
     // console.log('drawPolyline called with:', polylineType, coordinatesStr, info);
 
     if (!view) {
         console.error('MapView is not initialized.');
-        return;
+        return false;
     }
 
-    const coordinates = coordinatesStr.split(';').map(coord => {
-        const [longitude, latitude] = coord.split(',').map(Number);
-        return [longitude, latitude];
-    });
+    const coordinates = parsePolylineString(coordinatesStr);
+    if (!coordinates) return false;
 
     const polylineGeometry = new Polyline({
         paths: [coordinates]
@@ -225,12 +233,12 @@ export function drawPolyline(polylineType: string, coordinatesStr: string, info:
     });
 
     const popupTemplate = new PopupTemplate({
-        title: `${info.road} - 行驶指示`,
-        content: `方向: ${info.orientation}<br>
-                  行驶指示: ${info.instruction}<br>
-                  此路段距离: ${info.distance}米<br>
-                  导航主要动作: ${info.action}<br>
-                  ${info.assistantAction ? `导航辅助动作: ${info.assistantAction}` : ''}`
+        title: `${escapeHtml(info.road)} - 行驶指示`,
+        content: `方向: ${escapeHtml(info.orientation)}<br>
+                  行驶指示: ${escapeHtml(info.instruction)}<br>
+                  此路段距离: ${escapeHtml(info.distance)}米<br>
+                  导航主要动作: ${escapeHtml(info.action)}<br>
+                  ${info.assistantAction ? `导航辅助动作: ${escapeHtml(info.assistantAction)}` : ''}`
     });
 
     polylineGraphic.popupTemplate = popupTemplate;
@@ -238,13 +246,15 @@ export function drawPolyline(polylineType: string, coordinatesStr: string, info:
     tempLayer.add(polylineGraphic);
 
     // 监听地图缩放事件，动态调整线宽
-    view.watch('scale', (newScale) => {
+    const watchHandle = reactiveUtils.watch(() => view.scale, (newScale) => {
         const newWidth = getLineWidth(newScale);
         polylineGraphic.symbol = new SimpleLineSymbol({
             color: symbol.color,
             width: newWidth
         });
     });
+    graphicWatchHandles.add(watchHandle);
+    return true;
 }
 
 /**
@@ -252,12 +262,8 @@ export function drawPolyline(polylineType: string, coordinatesStr: string, info:
  * @param {string} polygonsString - 多边形经纬度字符串，多边形之间用'|'分割，点之间用';'，坐标之间用','
  */
 export function drawGrid(polygonsString: string) {
-    const polygons = polygonsString.split('|').map(polygon =>
-        polygon.split(';').map(point => {
-            const [x, y] = point.split(',').map(parseFloat);
-            return [x, y];  // 直接创建坐标对数组
-        })
-    );
+    const polygons = parsePolygonString(polygonsString);
+    if (!polygons) return false;
 
     polygons.forEach(polygonCoords => {
         const polygon = new Polygon({
@@ -276,6 +282,7 @@ export function drawGrid(polygonsString: string) {
         });
         tempLayer.add(polygonGraphic);
     });
+    return true;
 }
 
 

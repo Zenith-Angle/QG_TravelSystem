@@ -2,22 +2,16 @@
 import WebTileLayer from '@arcgis/core/layers/WebTileLayer';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import SpatialReference from '@arcgis/core/geometry/SpatialReference';
-import WMSLayer from '@arcgis/core/layers/WMSLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import MapImageLayer from '@arcgis/core/layers/MapImageLayer';
-import {ref, Ref, onMounted, watchEffect} from 'vue';
-import {getUserLocation} from './location';
-import {Point} from '@arcgis/core/geometry';
+import {ref, Ref, watchEffect} from 'vue';
+import Point from '@arcgis/core/geometry/Point';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import SketchViewModel from "@arcgis/core/widgets/Sketch"
 import Graphic from "@arcgis/core/Graphic";
+import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
 import * as webMercatorUtils from '@arcgis/core/geometry/support/webMercatorUtils';
-import {Polyline, Polygon} from '@arcgis/core/geometry';
-import {SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol} from '@arcgis/core/symbols';
-import * as os from "node:os";
-import {watch} from "vue";
-import keys from "../keys.json";
+import {tiandituKey} from "../config";
 import {useMapStore} from '../stores/map';
 
 
@@ -26,40 +20,36 @@ export const mapCenter = ref([104.154319, 35.943354]); // 默认中心位置，�
 
 
 
-// 使用 keys 对象中的 tiandituKey
-const tiandituKey = keys.tiandituKey;
-
-
 // 天地图矢量图层
 const tdtVecLayer = new WebTileLayer({
-    urlTemplate: `http://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
+    urlTemplate: `https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
     id: 'tdtVecLayer'
 });
 // 天地图矢量注记图层
 const tdtCvaLayer = new WebTileLayer({
-    urlTemplate: `http://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
+    urlTemplate: `https://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
     id: 'tdtCvaLayer'
 });
 
 // 天地图影像图层
 const tdtImgLayer = new WebTileLayer({
-    urlTemplate: `http://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
+    urlTemplate: `https://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
     id: 'tdtImgLayer'
 });
 // 天地图影像注记图层
 const tdtCiaLayer = new WebTileLayer({
-    urlTemplate: `http://t0.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cia&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
+    urlTemplate: `https://t0.tianditu.gov.cn/cia_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cia&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
     id: 'tdtCiaLayer'
 });
 
 //天地图地形晕染图层
 const tdtTerLayer = new WebTileLayer({
-    urlTemplate: `http://t0.tianditu.gov.cn/ter_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ter&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
+    urlTemplate: `https://t0.tianditu.gov.cn/ter_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ter&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
     id: 'tdtTerLayer'
 });
 //天地图地形晕染注记图层
 const tdtCtaLayer = new WebTileLayer({
-    urlTemplate: `http://t0.tianditu.gov.cn/cta_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cta&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
+    urlTemplate: `https://t0.tianditu.gov.cn/cta_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cta&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={level}&TILEROW={row}&TILECOL={col}&tk=${tiandituKey}`,
     id: 'tdtCtaLayer'
 });
 
@@ -87,11 +77,38 @@ const HotPoint = new MapImageLayer({
     id: 'HotPoint'
 });
 
-// 新增 景点图 图层
-const landmarks: FeatureLayer = new FeatureLayer({
-    url: 'https://qg.zenithangle.top/server/rest/services/%E6%A2%81%E6%AD%A3%E7%82%9C_%E9%9D%92%E7%94%98%E5%A4%A7%E7%8E%AF%E7%BA%BF/landmarks/MapServer',
-    id: 'Landmarks'
+const landmarkDefinitions = [
+    {name: '青海湖', longitude: 100.2254, latitude: 36.8974},
+    {name: '茶卡盐湖', longitude: 99.077, latitude: 36.692},
+    {name: '大柴旦', longitude: 95.365, latitude: 37.85},
+    {name: '乌素特水上雅丹地质公园', longitude: 93.6, latitude: 38.75},
+    {name: '莫高窟-鸣沙山月牙泉', longitude: 94.6623, latitude: 40.1421},
+    {name: '嘉峪关关城', longitude: 98.2235, latitude: 39.8001},
+    {name: '张掖七彩丹霞', longitude: 100.0635, latitude: 38.973},
+    {name: '卓尔山', longitude: 100.246, latitude: 38.194},
+    {name: '马蹄寺景区', longitude: 100.628, latitude: 38.531}
+];
+
+// 使用随应用发布的轻量景点索引，避免核心交互依赖已失效的远端图层服务。
+export const landmarks = new GraphicsLayer({
+    id: 'Landmarks',
+    title: 'Landmarks'
 });
+landmarks.addMany(landmarkDefinitions.map((landmark, index) => new Graphic({
+        geometry: new Point({
+            longitude: landmark.longitude,
+            latitude: landmark.latitude
+        }),
+        attributes: {
+            ObjectID: index + 1,
+            Name: landmark.name
+        },
+        symbol: new SimpleMarkerSymbol({
+            color: [219, 78, 71, 0.9],
+            size: 10,
+            outline: {color: [255, 255, 255, 0.9], width: 1}
+        })
+    })));
 
 
 
@@ -110,10 +127,12 @@ const road = new FeatureLayer({
 
 let view: MapView | null = null;
 let mapStore: ReturnType<typeof useMapStore> | null = null;
+let viewCleanupCallbacks: Array<() => void> = [];
 
 export const tempLayer = new GraphicsLayer();
 
 export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
+    destroyMapView();
     mapStore = useMapStore();
     if (mapStore && mapStore.mapCenter.length === 2) {
         mapCenter.value = [mapStore.mapCenter[0], mapStore.mapCenter[1]];
@@ -133,7 +152,7 @@ export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
         }
     });
 
-    watchEffect(() => {
+    viewCleanupCallbacks.push(watchEffect(() => {
         let layers;
         switch (selectedLayer.value) {
             case 'tdtVecLayer':
@@ -164,9 +183,9 @@ export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
         if (map.layers.includes(tempLayer)) {
             map.reorder(tempLayer, map.layers.length - 1);
         }
-    });
+    }));
 
-    watchEffect(() => {
+    viewCleanupCallbacks.push(watchEffect(() => {
         if (!mapStore) {
             return;
         }
@@ -174,19 +193,19 @@ export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
         if (mapCenter.value[0] !== lng || mapCenter.value[1] !== lat) {
             mapCenter.value = [lng, lat];
         }
-    });
+    }));
 
 
 
 // 监听mapCenter的变化，当它变化时，更新地图的中心位置
-    watchEffect(() => {
+    viewCleanupCallbacks.push(watchEffect(() => {
         view.center = new Point({
             longitude: mapCenter.value[0],
             latitude: mapCenter.value[1]
         });
-    });
+    }));
 
-    view.on('drag', function (event) {
+    const dragHandle = view.on('drag', function (event) {
         // 当地图被拖动时，更新 mapCenter 的值
         if (event.action === 'end') {
             const center = view.center;
@@ -196,10 +215,20 @@ export function baseMapView(containerId: string, selectedLayer: Ref<string>) {
             }
         }
     });
+    viewCleanupCallbacks.push(() => dragHandle.remove());
 
 
 
     return {view, map};
+}
+
+export function destroyMapView() {
+    stopManualLocation();
+    viewCleanupCallbacks.forEach(cleanup => cleanup());
+    viewCleanupCallbacks = [];
+    view?.destroy();
+    view = null;
+    mapStore = null;
 }
 
 export {view}; // 导出 view 变量
@@ -224,6 +253,24 @@ export function setMapCenter(longitude: number, latitude: number, zoom: number =
 
 
 let sketchViewModel: SketchViewModel | null = null;
+let manualGraphicsLayer: GraphicsLayer | null = null;
+let manualClickHandle: __esri.Handle | null = null;
+
+function stopManualLocation() {
+    manualClickHandle?.remove();
+    manualClickHandle = null;
+
+    if (sketchViewModel) {
+        sketchViewModel.cancel();
+        sketchViewModel.destroy();
+        sketchViewModel = null;
+    }
+
+    if (manualGraphicsLayer && view?.map) {
+        view.map.remove(manualGraphicsLayer);
+    }
+    manualGraphicsLayer = null;
+}
 
 export function selectManualLocation(enable: boolean, notify: (msg: string) => void, onComplete: () => void) {
     if (!view) {
@@ -231,19 +278,15 @@ export function selectManualLocation(enable: boolean, notify: (msg: string) => v
         return;
     }
 
-    if (sketchViewModel) {
-        sketchViewModel.cancel(); // 取消创建
-        sketchViewModel.destroy(); // 销毁 SketchViewModel 实例
-        sketchViewModel = null;
-    }
+    stopManualLocation();
 
     if (enable) {
-        const graphicsLayer = new GraphicsLayer();
-        view.map.add(graphicsLayer); // 添加图形层到地图
+        manualGraphicsLayer = new GraphicsLayer();
+        view.map.add(manualGraphicsLayer);
 
         sketchViewModel = new SketchViewModel({
             view: view,
-            layer: graphicsLayer,
+            layer: manualGraphicsLayer,
             defaultCreateOptions: {
                 mode: 'click' // 确保模式设置为 click
             }
@@ -251,34 +294,28 @@ export function selectManualLocation(enable: boolean, notify: (msg: string) => v
 
         sketchViewModel.on('create', (event) => {
             if (event.state === 'complete') {
-                sketchViewModel.layer.removeAll(); // 清除草图图层
+                manualGraphicsLayer?.removeAll();
                 let point = event.graphic.geometry as Point;
                 point = webMercatorUtils.webMercatorToGeographic(point) as Point;
-                setMapCenter(point.longitude, point.latitude, 15); // 使用转换后的经纬度更新地图中心
+                setMapCenter(point.longitude, point.latitude, 15);
                 notify(`目标经度: ${point.longitude.toFixed(3)}, 目标纬度: ${point.latitude.toFixed(3)}`);
-                notify(`当前仍处于手动选择位置模式，点击右键可退出`);
-                onComplete(); // 调用 onComplete 回调来更新状态
+                stopManualLocation();
+                onComplete();
             }
         });
 
         sketchViewModel.create('point'); // 创建点
 
-        // 添加鼠标右键点击事件监听，用于退出选择模式
-        view.on("click", function (event) {
-            if (event.button === 2) { // 检查是否是鼠标右键
-                if (sketchViewModel) {
-                    sketchViewModel.cancel(); // 取消当前创建
-                    onComplete(); // 调用 onComplete 更新状态
-                    notify('手动选择位置功能已关闭');
-                }
+        manualClickHandle = view.on("click", function (event) {
+            if (event.button === 2) {
+                stopManualLocation();
+                onComplete();
+                notify('手动选择位置功能已关闭');
             }
         });
     } else {
-        if (sketchViewModel) {
-            sketchViewModel.cancel(); // 取消当前创建
-            onComplete(); // 确保在关闭时也调用 onComplete
-            notify('手动选择位置功能已关闭');
-        }
+        onComplete();
+        notify('手动选择位置功能已关闭');
     }
 }
 

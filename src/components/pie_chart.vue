@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, watch} from 'vue';
+import {ref, onMounted, onBeforeUnmount, watch} from 'vue';
 import * as echarts from 'echarts';
 
 const props = defineProps({
@@ -13,9 +13,12 @@ const props = defineProps({
 
 const chartContainer = ref(null);
 let chartInstance = null;
+let loadGeneration = 0;
+let disposed = false;
 
 const loadChartData = async (landmarkName) => {
   if (!landmarkName) return;
+  const generation = ++loadGeneration;
 
   try {
     // 动态导入 JSON 文件
@@ -28,15 +31,16 @@ const loadChartData = async (landmarkName) => {
       name: emotionMapping[item.name] || "Unknown", // 使用映射将 '1' 和 '0' 转换为 'Positive' 和 'Negative'
       value: item.value
     }));
-    updateChart(formattedData);
+    if (!disposed && generation === loadGeneration) updateChart(formattedData);
   } catch (error) {
     console.error("Failed to load chart data:", error);
-    updateChart([]); // 在错误情况下更新图表为空
+    if (!disposed && generation === loadGeneration) updateChart([]);
   }
 };
 
 
 const updateChart = (data) => {
+  if (disposed || !chartContainer.value) return;
   if (!chartInstance) {
     chartInstance = echarts.init(chartContainer.value);
   }
@@ -78,11 +82,20 @@ const updateChart = (data) => {
 
 watch(() => props.landmarkName, (newVal) => {
   loadChartData(newVal);
-}, {immediate: true});
+});
 
 onMounted(() => {
+  disposed = false;
   chartInstance = echarts.init(chartContainer.value);
   chartInstance.setOption({series: [{type: 'pie', data: []}]}); // 初始化为空的饼图
+  loadChartData(props.landmarkName);
+});
+
+onBeforeUnmount(() => {
+  disposed = true;
+  loadGeneration += 1;
+  chartInstance?.dispose();
+  chartInstance = null;
 });
 </script>
 

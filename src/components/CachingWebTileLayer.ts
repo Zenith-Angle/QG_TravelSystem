@@ -58,7 +58,6 @@ class CachingWebTileLayer extends WebTileLayer {
   private cache: TileCache;
 
  constructor(options: __esri.WebTileLayerProperties) {
-    console.log("Initializing CachingWebTileLayer with options:", options);
     // 确保 options 包含 urlTemplate
     if (!options.urlTemplate) {
       throw new Error("Missing urlTemplate property in WebTileLayerProperties.");
