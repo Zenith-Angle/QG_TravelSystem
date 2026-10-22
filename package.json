@@ -1,7 +1,7 @@
 {
   "name": "my-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,11 +16,11 @@
   "dependencies": {
     "@arcgis/core": "^4.34.8",
     "@element-plus/icons-vue": "^2.3.2",
-    "axios": "^1.19.0",
+    "axios": "^1.20.0",
     "echarts": "^6.1.0",
     "element-plus": "^2.14.4",
     "pinia": "^2.3.1",
-    "vue": "^3.5.41",
+    "vue": "^3.5.42",
     "wordcloud": "^1.2.3"
   },
   "overrides": {
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.8",
     "typescript": "^5.9.3",
-    "vite": "^8.2.1",
+    "vite": "^8.2.4",
     "vue-tsc": "^3.3.10"
   }
 }
